@@ -1,7 +1,7 @@
 <template>
   <li class="order-item saved-order-item">
     <svg class="order-item-border" />
-    <div class="drink-thumbnail-contain er">
+    <div class="drink-thumbnail-container">
       <svg class="drink-thumbnail" />
     </div>
     <div class="drink-details-container">
@@ -35,9 +35,109 @@ const drinkOptions = {
   sugar: ["Full sugar", "Half sugar", "No sugar"]
 };
 
+function drawBorderBox(orderItem) {
+  let borderBox = orderItem.querySelector(".order-item-border");
+  borderBox.innerHTML = "";
+  let boxWidth = orderItem.offsetWidth;
+  let boxHeight = orderItem.offsetHeight;
+  let roughDraw = rough.svg(borderBox);
+  borderBox.appendChild(roughDraw.rectangle(0, 0, boxWidth, boxHeight));
+}
+
+function drawTeaImage(orderItem, size, teaType, topping, ice) {
+  let drinkThumbnail = orderItem.querySelector(".drink-thumbnail");
+  drinkThumbnail.innerHTML = "";
+  let roughDraw = rough.svg(drinkThumbnail);
+
+  let cup = roughDraw.path("M 10 65 H 90 L 75 190 H 25 Z");
+  if (size == drinkOptions.size[1]) {
+    cup = roughDraw.path("M 10 50 H 90 L 75 190 H 25 Z");
+  }
+  cup.classList.add("cup");
+  drinkThumbnail.appendChild(cup);
+
+  let straw = roughDraw.path("M 5 20 L 60 190", {
+    strokeWidth: "2"
+  });
+  straw.classList.add("straw");
+  drinkThumbnail.appendChild(straw);
+
+  let teaColor = "rgba(20,40,80,0.3)";
+  if (teaType == "Green milk tea") {
+    teaColor = "rgba(20,70,80,0.3)";
+  }
+
+  let tea = roughDraw.path("M 15 95 H 85 L 75 190 H 25 Z", {
+    fill: teaColor,
+    fillStyle: "solid"
+  });
+  if (size == drinkOptions.size[1]) {
+    tea = roughDraw.path("M 15 80 H 85 L 75 190 H 25 Z", {
+      fill: teaColor,
+      fillStyle: "solid"
+    });
+  }
+  tea.classList.add("tea");
+  drinkThumbnail.appendChild(tea);
+
+  if (topping == "Pearls") {
+    console.log("pearls");
+  }
+
+  if (ice != "No ice") {
+    let ice1 = roughDraw.path("M 48 78 L 73 76 L 70 98 L 49 100 Z", {
+      fill: "rgba(255,255,255,0.9)",
+      fillStyle: "solid"
+    });
+    drinkThumbnail.appendChild(ice1);
+    drinkThumbnail.lastElementChild.classList.add("ice1");
+
+    let ice2 = roughDraw.path("M 18 78 L 43 80 L 40 100 L 19 99 Z", {
+      fill: "rgba(255,255,255,0.9)",
+      fillStyle: "solid"
+    });
+    drinkThumbnail.appendChild(ice2);
+    drinkThumbnail.lastElementChild.classList.add("ice2");
+
+    if (ice == "Full ice") {
+      let ice3 = roughDraw.path("M 33 108 L 45 95 L 65 105 L 50 120 Z", {
+        fill: "rgba(255,255,255,0.9)",
+        fillStyle: "solid"
+      });
+      drinkThumbnail.appendChild(ice3);
+      drinkThumbnail.lastElementChild.classList.add("ice3");
+
+      let ice4 = roughDraw.path("M 65 109 L 75 95 L 84 105 L 81 124 Z", {
+        fill: "rgba(255,255,255,0.9)",
+        fillStyle: "solid"
+      });
+      drinkThumbnail.appendChild(ice4);
+      drinkThumbnail.lastElementChild.classList.add("ice4");
+    }
+  }
+}
+
 export default {
   name: "OrderListItem",
   props: ["index", "size", "tea", "topping", "ice", "sugar"],
+  watch: {
+    size: function() {
+      console.log(this.size);
+      drawTeaImage(this.$el, this.size, this.tea, this.topping, this.ice);
+    },
+    tea: function() {
+      console.log(this.tea);
+      drawTeaImage(this.$el, this.size, this.tea, this.topping, this.ice);
+    },
+    topping: function() {
+      console.log(this.topping);
+      drawTeaImage(this.$el, this.size, this.tea, this.topping, this.ice);
+    },
+    ice: function() {
+      console.log(this.ice);
+      drawTeaImage(this.$el, this.size, this.tea, this.topping, this.ice);
+    }
+  },
   methods: {
     changeOption(event, propertyToChange) {
       let indexToChange = event.target.closest(".order-item").dataset.index;
@@ -48,15 +148,8 @@ export default {
     }
   },
   mounted() {
-    console.log("Order item mounted");
-    let borderBox = this.$el.querySelector(".order-item-border");
-    console.log(borderBox);
-    borderBox.innerHTML = "";
-    let boxWidth = this.$el.offsetWidth;
-    let boxHeight = this.$el.offsetHeight;
-    console.log(boxWidth);
-    let roughDraw = rough.svg(borderBox);
-    borderBox.appendChild(roughDraw.rectangle(0, 0, boxWidth, boxHeight));
+    drawBorderBox(this.$el);
+    drawTeaImage(this.$el, this.size, this.tea, this.topping, this.ice);
   }
 };
 </script>
