@@ -7,14 +7,6 @@
   </li>
 </template>
 
-<script>
-export default {
-  data() {
-    return {};
-  }
-};
-</script>
-
 <style scoped>
 li#new-order-item {
   text-align: center;

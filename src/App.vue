@@ -13,6 +13,24 @@ import Header from "./components/Header.vue";
 import OrderList from "./components/OrderList.vue";
 import OrderListHeader from "./components/OrderListHeader.vue";
 
+// function drawOrderItemBorders() {
+
+//     let orderItems = document.querySelectorAll(".order-item");
+
+//     for (let i = 0; i < orderItems.length; i++) {
+
+//         let borderBox = orderItems[i].querySelector(".order-item-border");
+//         borderBox.innerHTML = "";
+//         let boxWidth = orderItems[i].offsetWidth;
+//         let boxHeight = orderItems[i].offsetHeight;
+
+//         let roughDraw = rough.svg(borderBox);
+//         borderBox.appendChild(roughDraw.rectangle(0, 0, boxWidth, boxHeight));
+
+//     }
+
+// }
+
 export default {
   name: "App",
   components: {

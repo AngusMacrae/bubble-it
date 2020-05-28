@@ -10,6 +10,7 @@
       :ice="drink.ice"
       :sugar="drink.sugar"
       @remove="removeDrink(index)"
+      @duplicate="duplicateDrink(index)"
       @change="changeDrink"
     />
     <NewOrderListItem @add-drink="addDrink" />
@@ -65,6 +66,11 @@ export default {
     removeDrink(indexToRemove) {
       console.log(indexToRemove);
       this.order = this.order.filter((item, index) => index != indexToRemove);
+    },
+    duplicateDrink(indexToDuplicate) {
+      let drinkToDuplicate = this.order[indexToDuplicate];
+      let duplicate = {};
+      this.order.push(Object.assign(duplicate, drinkToDuplicate));
     },
     changeDrink(indexToChange, propertyToChange, currentIndex) {
       this.order[indexToChange][propertyToChange] =
