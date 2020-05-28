@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import rough from "roughjs/bundled/rough.cjs";
+
 const drinkOptions = {
   size: ["Regular", "Large"],
   tea: ["Black milk tea", "Green milk tea", "Black tea", "Green tea"],
@@ -44,6 +46,17 @@ export default {
       );
       this.$emit("change", indexToChange, propertyToChange, currentIndex);
     }
+  },
+  mounted() {
+    console.log("Order item mounted");
+    let borderBox = this.$el.querySelector(".order-item-border");
+    console.log(borderBox);
+    borderBox.innerHTML = "";
+    let boxWidth = this.$el.offsetWidth;
+    let boxHeight = this.$el.offsetHeight;
+    console.log(boxWidth);
+    let roughDraw = rough.svg(borderBox);
+    borderBox.appendChild(roughDraw.rectangle(0, 0, boxWidth, boxHeight));
   }
 };
 </script>
