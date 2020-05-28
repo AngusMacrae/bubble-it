@@ -79,8 +79,7 @@ h3 {
 
 h3::after {
   counter-increment: drinkNumber;
-  /* counter-increment: drinkNumber -1; */
-  content: counter(drinkNumber);
+  content: " " counter(drinkNumber);
 }
 
 p,
