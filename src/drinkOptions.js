@@ -1,7 +1,8 @@
 export const drinkOptions = {
-    sizes: ['Regular', 'Large'],
-    teas: ['Black milk tea', 'Green milk tea', 'Black tea', 'Green tea'],
-    toppings: ['Pearls', 'Coconut jelly', 'No topping'],
-    iceLevels: ['Full ice', 'Half ice', 'No ice'],
-    sugarLevels: ['Full sugar', 'Half sugar', 'No sugar']
-}
+  size: ['Regular', 'Large'],
+  tea: ['Black tea', 'Green tea'],
+  milk: ['Fresh milk', 'No milk'],
+  topping: ['Pearls', 'Coconut jelly', 'No topping'],
+  ice: ['Full ice', 'Half ice', 'No ice'],
+  sugar: ['Full sugar', 'Half sugar', 'No sugar'],
+};

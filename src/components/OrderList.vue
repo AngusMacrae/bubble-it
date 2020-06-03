@@ -10,6 +10,7 @@
       :topping="drink.topping"
       :ice="drink.ice"
       :sugar="drink.sugar"
+      :fillColor="index % 3"
       @remove="removeDrink(index)"
       @duplicate="duplicateDrink(index)"
       @change="changeDrink"
@@ -22,14 +23,7 @@
 import OrderListItem from "./OrderListItem.vue";
 import NewOrderListItem from "./NewOrderListItem.vue";
 
-const drinkOptions = {
-  size: ["Regular", "Large"],
-  tea: ["Black tea", "Green tea"],
-  milk: ["Fresh milk", "No milk"],
-  topping: ["Pearls", "Coconut jelly", "No topping"],
-  ice: ["Full ice", "Half ice", "No ice"],
-  sugar: ["Full sugar", "Half sugar", "No sugar"]
-};
+import { drinkOptions } from "../drinkOptions";
 
 function nextArrayIndex(currentIndex, array) {
   if (currentIndex == array.length - 1) {
@@ -105,5 +99,9 @@ li.order-item {
   width: 100%;
   height: 100%;
   z-index: -1;
+}
+
+.order-item:nth-of-type(2) > .order-item-border {
+  background-color: "#f4dada";
 }
 </style>

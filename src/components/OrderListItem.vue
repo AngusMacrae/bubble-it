@@ -28,61 +28,25 @@
 <script>
 import rough from "roughjs/bundled/rough.cjs";
 
-const drinkOptions = {
-  size: ["Regular", "Large"],
-  tea: ["Black tea", "Green tea"],
-  milk: ["Fresh milk", "No milk"],
-  topping: ["Pearls", "Coconut jelly", "No topping"],
-  ice: ["Full ice", "Half ice", "No ice"],
-  sugar: ["Full sugar", "Half sugar", "No sugar"]
-};
+import { drinkOptions } from "../drinkOptions";
+import { teaImageVals } from "../teaImageVals";
+import { fillColors } from "../fillColors";
 
-const teaImageVals = {
-  cup: ["M 10 65 H 90 L 75 190 H 25 Z", "M 10 45 H 90 L 75 190 H 25 Z"],
-  straw: [
-    "M 2 25 L 60 190 L 65 187 L 7 22 Z",
-    "M 6 25 L 60 190 L 65 188 L 13 23 Z"
-  ],
-  milk: ["M 15 95 H 85 L 83 115 H 17 Z", "M 13 75 H 87 L 84 100 H 16 Z"],
-  tea: ["M 15 95 H 85 L 75 190 H 25 Z", "M 15 80 H 85 L 75 190 H 25 Z"],
-  teaColor: ["rgba(196,180,154,0.9)", "rgba(154,146,88,0.9)"],
-  ice: [
-    [
-      "M 48 78 L 73 76 L 70 98 L 49 100 Z",
-      "M 18 78 L 43 80 L 40 100 L 19 99 Z",
-      "M 33 108 L 45 95 L 65 105 L 50 120 Z",
-      "M 65 109 L 75 95 L 84 105 L 81 124 Z"
-    ],
-    [
-      "M 48 78 L 73 76 L 70 98 L 49 100 Z",
-      "M 18 78 L 43 80 L 40 100 L 19 99 Z",
-      "M 33 108 L 45 95 L 65 105 L 50 120 Z",
-      "M 65 109 L 75 95 L 84 105 L 81 124 Z"
-    ]
-  ],
-  topping: {
-    pearls: [
-      [30, 185],
-      [37, 184],
-      [33, 178],
-      [44, 185],
-      [40, 178],
-      [40, 178],
-      [40, 178],
-      [40, 178],
-      [30, 185]
-    ],
-    coconutJelly: []
-  }
-};
-
-function drawBorderBox(orderItem) {
+function drawBorderBox(orderItem, fillColorIndex) {
   let borderBox = orderItem.querySelector(".order-item-border");
+  let fillColor = fillColors[fillColorIndex];
   borderBox.innerHTML = "";
   let boxWidth = orderItem.offsetWidth;
   let boxHeight = orderItem.offsetHeight;
   let roughDraw = rough.svg(borderBox);
-  borderBox.appendChild(roughDraw.rectangle(0, 0, boxWidth, boxHeight));
+  borderBox.appendChild(
+    roughDraw.rectangle(0, 0, boxWidth, boxHeight, {
+      fill: fillColor,
+      fillStyle: "cross-hatch",
+      stroke: "rgb(60,60,60)",
+      roughness: 4
+    })
+  );
 }
 
 function drawTeaImage(orderItem, size, teaType, milk, topping, iceLevel) {
@@ -181,11 +145,19 @@ function drawTeaImage(orderItem, size, teaType, milk, topping, iceLevel) {
 
 export default {
   name: "OrderListItem",
-  props: ["index", "size", "tea", "milk", "topping", "ice", "sugar"],
+  props: [
+    "index",
+    "size",
+    "tea",
+    "milk",
+    "topping",
+    "ice",
+    "sugar",
+    "fillColor"
+  ],
   watch: {
     size: function() {
       console.log(this.size);
-      // drawTeaImage(this.$el, drinkOptions.size.indexOf(this.size), drinkOptions.size.indexOf(this.tea), drinkOptions.size.indexOf(this.topping), drinkOptions.size.indexOf(this.ice));
       drawTeaImage(
         this.$el,
         this.size,
@@ -250,7 +222,7 @@ export default {
     }
   },
   mounted() {
-    drawBorderBox(this.$el);
+    drawBorderBox(this.$el, this.fillColor);
     drawTeaImage(
       this.$el,
       this.size,

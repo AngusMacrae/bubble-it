@@ -72,6 +72,12 @@ main {
   padding: 1rem;
 }
 
+h1,
+h2,
+h3 {
+  color: #222;
+}
+
 /* TYPOGRAPHY */
 
 h1 {
