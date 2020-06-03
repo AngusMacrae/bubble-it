@@ -24,27 +24,19 @@ h1 {
   text-shadow: 3px 3px 1px black;
 }
 
-h1 span:nth-of-type(1),
-h1 span:nth-of-type(5),
-h1 span:nth-of-type(9) {
+h1 span:nth-of-type(4n + 1) {
   color: var(--light-blue);
 }
 
-h1 span:nth-of-type(2),
-h1 span:nth-of-type(6),
-h1 span:nth-of-type(10) {
+h1 span:nth-of-type(4n + 2) {
   color: var(--light-pink);
 }
 
-h1 span:nth-of-type(3),
-h1 span:nth-of-type(7),
-h1 span:nth-of-type(11) {
+h1 span:nth-of-type(4n + 3) {
   color: var(--dark-pink);
 }
 
-h1 span:nth-of-type(4),
-h1 span:nth-of-type(8),
-h1 span:nth-of-type(12) {
+h1 span:nth-of-type(4n + 4) {
   color: var(--light-yellow);
 }
 </style>
