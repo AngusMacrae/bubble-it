@@ -30,6 +30,10 @@ export default {
 
 :root {
   --primary-colour: #fff;
+  --light-blue: #beebe9;
+  --light-pink: #f4dada;
+  --dark-pink: #ffb6b9;
+  --light-yellow: #f6eec7;
   /* --background-colour: #DBF8B2; */
 }
 
@@ -52,6 +56,7 @@ ul {
 body {
   /* background-image: url("./assets/135.jpg"); */
   background-image: url("./assets/paper-texture.png");
+  color: #777;
 }
 
 main {

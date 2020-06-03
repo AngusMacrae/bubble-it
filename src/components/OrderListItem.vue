@@ -45,9 +45,35 @@ const teaImageVals = {
   ],
   milk: ["M 15 95 H 85 L 83 115 H 17 Z", "M 13 75 H 87 L 84 100 H 16 Z"],
   tea: ["M 15 95 H 85 L 75 190 H 25 Z", "M 15 80 H 85 L 75 190 H 25 Z"],
-  teaColor: ["rgba(196,180,154,0.9)", "rgba(154,146,88,0.9)"]
-  // ice: [],
-  // topping: []
+  teaColor: ["rgba(196,180,154,0.9)", "rgba(154,146,88,0.9)"],
+  ice: [
+    [
+      "M 48 78 L 73 76 L 70 98 L 49 100 Z",
+      "M 18 78 L 43 80 L 40 100 L 19 99 Z",
+      "M 33 108 L 45 95 L 65 105 L 50 120 Z",
+      "M 65 109 L 75 95 L 84 105 L 81 124 Z"
+    ],
+    [
+      "M 48 78 L 73 76 L 70 98 L 49 100 Z",
+      "M 18 78 L 43 80 L 40 100 L 19 99 Z",
+      "M 33 108 L 45 95 L 65 105 L 50 120 Z",
+      "M 65 109 L 75 95 L 84 105 L 81 124 Z"
+    ]
+  ],
+  topping: {
+    pearls: [
+      [30, 185],
+      [37, 184],
+      [33, 178],
+      [44, 185],
+      [40, 178],
+      [40, 178],
+      [40, 178],
+      [40, 178],
+      [30, 185]
+    ],
+    coconutJelly: []
+  }
 };
 
 function drawBorderBox(orderItem) {
@@ -59,10 +85,20 @@ function drawBorderBox(orderItem) {
   borderBox.appendChild(roughDraw.rectangle(0, 0, boxWidth, boxHeight));
 }
 
-function drawTeaImage(orderItem, size, teaType, milk, topping, ice) {
+function drawTeaImage(orderItem, size, teaType, milk, topping, iceLevel) {
   let drinkThumbnail = orderItem.querySelector(".drink-thumbnail");
   drinkThumbnail.innerHTML = "";
   let roughDraw = rough.svg(drinkThumbnail);
+
+  let straw = roughDraw.path(
+    teaImageVals.straw[drinkOptions.size.indexOf(size)],
+    {
+      strokeWidth: "1",
+      stroke: "rgb(60,60,60)"
+    }
+  );
+  straw.classList.add("straw");
+  drinkThumbnail.appendChild(straw);
 
   let tea = roughDraw.path(teaImageVals.tea[drinkOptions.size.indexOf(size)], {
     fill: teaImageVals.teaColor[drinkOptions.tea.indexOf(teaType)],
@@ -77,7 +113,7 @@ function drawTeaImage(orderItem, size, teaType, milk, topping, ice) {
     let milkCap = roughDraw.path(
       teaImageVals.milk[drinkOptions.size.indexOf(size)],
       {
-        fill: "rgba(255,250,250,0.95)",
+        fill: "rgba(255,250,250,0.9)",
         fillStyle: "solid",
         strokeWidth: 0,
         roughness: 0
@@ -87,60 +123,60 @@ function drawTeaImage(orderItem, size, teaType, milk, topping, ice) {
     drinkThumbnail.appendChild(milkCap);
   }
 
-  let cup = roughDraw.path(teaImageVals.cup[drinkOptions.size.indexOf(size)]);
-  cup.classList.add("cup");
-  drinkThumbnail.appendChild(cup);
+  let ice = [];
 
-  let straw = roughDraw.path(
-    teaImageVals.straw[drinkOptions.size.indexOf(size)],
-    {
-      strokeWidth: "2"
+  if (iceLevel != "No ice") {
+    for (let i = 0; i < 2; i++) {
+      ice[i] = roughDraw.path(
+        teaImageVals.ice[drinkOptions.size.indexOf(size)][i],
+        {
+          fill: "rgba(245,245,255,0.95)",
+          fillStyle: "solid",
+          strokeWidth: 0.5,
+          roughness: 0.5
+        }
+      );
+      drinkThumbnail.appendChild(ice[i]);
+      drinkThumbnail.lastElementChild.classList.add("ice" + i);
     }
-  );
-  straw.classList.add("straw");
-  drinkThumbnail.appendChild(straw);
+  }
+
+  if (ice == "Full ice") {
+    for (let i = 2; i < 4; i++) {
+      ice[i] = roughDraw.path(
+        teaImageVals.ice[drinkOptions.size.indexOf(size)][i],
+        {
+          fill: "rgba(245,245,255,0.95)",
+          fillStyle: "solid",
+          stroke: "rgb(60,60,60)",
+          strokeWidth: 0.5
+        }
+      );
+      drinkThumbnail.appendChild(ice[i]);
+      drinkThumbnail.lastElementChild.classList.add("ice" + i);
+    }
+  }
 
   if (topping == "Pearls") {
-    // console.log("pearls");
+    for (let i = 0; i < teaImageVals.topping.pearls.length; i++) {
+      let pearl = roughDraw.circle(...teaImageVals.topping.pearls[i], 7, {
+        fill: "rgba(37,23,26,0.9)",
+        strokeWidth: 0,
+        roughness: 0.3,
+        fillStyle: "solid"
+      });
+      drinkThumbnail.appendChild(pearl);
+      drinkThumbnail.lastElementChild.classList.add("pearl" + i);
+    }
   } else if (topping == "Coconut jelly") {
     // console.log("coconut jelly");
   }
 
-  if (ice != "No ice") {
-    let ice1 = roughDraw.path("M 48 78 L 73 76 L 70 98 L 49 100 Z", {
-      fill: "rgba(245,245,255,0.95)",
-      fillStyle: "solid",
-      strokeWidth: 0.5
-    });
-    drinkThumbnail.appendChild(ice1);
-    drinkThumbnail.lastElementChild.classList.add("ice1");
-
-    let ice2 = roughDraw.path("M 18 78 L 43 80 L 40 100 L 19 99 Z", {
-      fill: "rgba(245,245,255,0.95)",
-      fillStyle: "solid",
-      strokeWidth: 0.5
-    });
-    drinkThumbnail.appendChild(ice2);
-    drinkThumbnail.lastElementChild.classList.add("ice2");
-
-    if (ice == "Full ice") {
-      let ice3 = roughDraw.path("M 33 108 L 45 95 L 65 105 L 50 120 Z", {
-        fill: "rgba(245,245,255,0.95)",
-        fillStyle: "solid",
-        strokeWidth: 0.5
-      });
-      drinkThumbnail.appendChild(ice3);
-      drinkThumbnail.lastElementChild.classList.add("ice3");
-
-      let ice4 = roughDraw.path("M 65 109 L 75 95 L 84 105 L 81 124 Z", {
-        fill: "rgba(245,245,255,0.95)",
-        fillStyle: "solid",
-        strokeWidth: 0.5
-      });
-      drinkThumbnail.appendChild(ice4);
-      drinkThumbnail.lastElementChild.classList.add("ice4");
-    }
-  }
+  let cup = roughDraw.path(teaImageVals.cup[drinkOptions.size.indexOf(size)], {
+    stroke: "rgb(60,60,60)"
+  });
+  cup.classList.add("cup");
+  drinkThumbnail.appendChild(cup);
 }
 
 export default {
