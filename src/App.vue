@@ -50,6 +50,7 @@ ul {
 /* BASE STYLES */
 
 body {
+  /* background-image: url("./assets/135.jpg"); */
   background-image: url("./assets/paper-texture.png");
 }
 

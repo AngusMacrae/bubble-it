@@ -6,6 +6,7 @@
       :data-index="index"
       :size="drink.size"
       :tea="drink.tea"
+      :milk="drink.milk"
       :topping="drink.topping"
       :ice="drink.ice"
       :sugar="drink.sugar"
@@ -23,7 +24,8 @@ import NewOrderListItem from "./NewOrderListItem.vue";
 
 const drinkOptions = {
   size: ["Regular", "Large"],
-  tea: ["Black milk tea", "Green milk tea", "Black tea", "Green tea"],
+  tea: ["Black tea", "Green tea"],
+  milk: ["Fresh milk", "No milk"],
   topping: ["Pearls", "Coconut jelly", "No topping"],
   ice: ["Full ice", "Half ice", "No ice"],
   sugar: ["Full sugar", "Half sugar", "No sugar"]
@@ -44,7 +46,8 @@ export default {
       order: [
         {
           size: "Regular",
-          tea: "Black milk tea",
+          tea: "Black tea",
+          milk: "Fresh milk",
           topping: "Pearls",
           ice: "Half ice",
           sugar: "Half sugar"
@@ -56,11 +59,12 @@ export default {
     addDrink(
       size = drinkOptions.size[0],
       tea = drinkOptions.tea[0],
+      milk = drinkOptions.milk[0],
       topping = drinkOptions.topping[0],
       ice = drinkOptions.ice[0],
       sugar = drinkOptions.sugar[0]
     ) {
-      this.order.push({ size, tea, topping, ice, sugar });
+      this.order.push({ size, tea, milk, topping, ice, sugar });
       console.log(this.order);
     },
     removeDrink(indexToRemove) {
