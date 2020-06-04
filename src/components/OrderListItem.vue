@@ -8,6 +8,7 @@
       <header>
         <h3 class="drink-details-title">Drink</h3>
         <small>(Click to change)</small>
+        <span class="price">{{price}}</span>
       </header>
       <ul class="drink-details">
         <li @click="changeOption($event, 'size')">{{size}}</li>
@@ -65,13 +66,12 @@ function drawTeaImage(
   iceLevel,
   index
 ) {
-  console.log(index);
   let drinkThumbnail = orderItem.querySelector(".drink-thumbnail");
   drinkThumbnail.innerHTML = "";
   let roughDraw = rough.svg(drinkThumbnail);
 
   let straw = roughDraw.path(
-    teaImageVals.straw[index % 2][drinkOptions.size.indexOf(size)],
+    teaImageVals.straw[index % 2][drinkOptions.size[0].indexOf(size)],
     {
       strokeWidth: "1",
       stroke: "rgb(60,60,60)"
@@ -80,18 +80,21 @@ function drawTeaImage(
   straw.classList.add("straw");
   drinkThumbnail.appendChild(straw);
 
-  let tea = roughDraw.path(teaImageVals.tea[drinkOptions.size.indexOf(size)], {
-    fill: teaImageVals.teaColor[drinkOptions.tea.indexOf(teaType)],
-    fillStyle: "solid",
-    strokeWidth: 0,
-    roughness: 0
-  });
+  let tea = roughDraw.path(
+    teaImageVals.tea[drinkOptions.size[0].indexOf(size)],
+    {
+      fill: teaImageVals.teaColor[drinkOptions.tea[0].indexOf(teaType)],
+      fillStyle: "solid",
+      strokeWidth: 0,
+      roughness: 0
+    }
+  );
   tea.classList.add("tea");
   drinkThumbnail.appendChild(tea);
 
   if (milk == "Fresh milk") {
     let milkCap = roughDraw.path(
-      teaImageVals.milk[drinkOptions.size.indexOf(size)],
+      teaImageVals.milk[drinkOptions.size[0].indexOf(size)],
       {
         fill: "rgba(255,250,250,0.9)",
         fillStyle: "solid",
@@ -108,7 +111,7 @@ function drawTeaImage(
   if (iceLevel != "No ice") {
     for (let i = 0; i < 3; i++) {
       ice[i] = roughDraw.path(
-        teaImageVals.ice[drinkOptions.size.indexOf(size)][i],
+        teaImageVals.ice[drinkOptions.size[0].indexOf(size)][i],
         {
           fill: "rgba(245,245,255,0.95)",
           fillStyle: "solid",
@@ -125,7 +128,7 @@ function drawTeaImage(
   if (iceLevel == "Full ice") {
     for (let i = 3; i < 5; i++) {
       ice[i] = roughDraw.path(
-        teaImageVals.ice[drinkOptions.size.indexOf(size)][i],
+        teaImageVals.ice[drinkOptions.size[0].indexOf(size)][i],
         {
           fill: "rgba(245,245,255,0.95)",
           fillStyle: "solid",
@@ -191,9 +194,12 @@ function drawTeaImage(
     }
   }
 
-  let cup = roughDraw.path(teaImageVals.cup[drinkOptions.size.indexOf(size)], {
-    stroke: "rgb(60,60,60)"
-  });
+  let cup = roughDraw.path(
+    teaImageVals.cup[drinkOptions.size[0].indexOf(size)],
+    {
+      stroke: "rgb(60,60,60)"
+    }
+  );
   cup.classList.add("cup");
   drinkThumbnail.appendChild(cup);
 }
@@ -208,7 +214,8 @@ export default {
     "topping",
     "ice",
     "sugar",
-    "fillColor"
+    "fillColor",
+    "price"
   ],
   watch: {
     size: function() {
@@ -275,7 +282,7 @@ export default {
   methods: {
     changeOption(event, propertyToChange) {
       let indexToChange = event.target.closest(".order-item").dataset.index;
-      let currentIndex = drinkOptions[propertyToChange].indexOf(
+      let currentIndex = drinkOptions[propertyToChange][0].indexOf(
         event.target.textContent
       );
       this.$emit("change", indexToChange, propertyToChange, currentIndex);
@@ -324,6 +331,10 @@ export default {
 
 .drink-details-container header > * {
   display: block;
+}
+
+.drink-details-container header > .price {
+  margin-left: auto;
 }
 
 .drink-details-container header h3 {

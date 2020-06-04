@@ -12,6 +12,7 @@
       :ice="drink.ice"
       :sugar="drink.sugar"
       :fillColor="index % 3"
+      :price="drink.price"
       @remove="removeDrink(index)"
       @duplicate="duplicateDrink(index)"
       @change="changeDrink"
@@ -34,6 +35,12 @@ function nextArrayIndex(currentIndex, array) {
   }
 }
 
+// Create our number formatter.
+const formatter = new Intl.NumberFormat("en-UK", {
+  style: "currency",
+  currency: "GBP"
+});
+
 export default {
   name: "OrderList",
   data() {
@@ -45,21 +52,23 @@ export default {
           milk: "Fresh milk",
           topping: "Pearls",
           ice: "Half ice",
-          sugar: "Half sugar"
+          sugar: "Half sugar",
+          price: formatter.format(3)
         }
       ]
     };
   },
   methods: {
     addDrink(
-      size = drinkOptions.size[0],
-      tea = drinkOptions.tea[0],
-      milk = drinkOptions.milk[0],
-      topping = drinkOptions.topping[0],
-      ice = drinkOptions.ice[0],
-      sugar = drinkOptions.sugar[0]
+      size = drinkOptions.size[0][0],
+      tea = drinkOptions.tea[0][0],
+      milk = drinkOptions.milk[0][0],
+      topping = drinkOptions.topping[0][0],
+      ice = drinkOptions.ice[0][0],
+      sugar = drinkOptions.sugar[0][0],
+      price = formatter.format(3)
     ) {
-      this.order.push({ size, tea, milk, topping, ice, sugar });
+      this.order.push({ size, tea, milk, topping, ice, sugar, price });
       console.log(this.order);
     },
     removeDrink(indexToRemove) {
@@ -73,9 +82,23 @@ export default {
     },
     changeDrink(indexToChange, propertyToChange, currentIndex) {
       this.order[indexToChange][propertyToChange] =
-        drinkOptions[propertyToChange][
-          nextArrayIndex(currentIndex, drinkOptions[propertyToChange])
+        drinkOptions[propertyToChange][0][
+          nextArrayIndex(currentIndex, drinkOptions[propertyToChange][0])
         ];
+      let newPrice = 0;
+      newPrice +=
+        drinkOptions.size[1][
+          drinkOptions.size[0].indexOf(this.order[indexToChange].size)
+        ];
+      newPrice +=
+        drinkOptions.milk[1][
+          drinkOptions.milk[0].indexOf(this.order[indexToChange].milk)
+        ];
+      newPrice +=
+        drinkOptions.topping[1][
+          drinkOptions.topping[0].indexOf(this.order[indexToChange].topping)
+        ];
+      this.order[indexToChange].price = formatter.format(newPrice);
     }
   },
   components: {
