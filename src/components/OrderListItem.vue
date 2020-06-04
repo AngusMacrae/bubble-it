@@ -327,10 +327,12 @@ export default {
 .drink-details-container header {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .drink-details-container header > * {
   display: block;
+  flex-shrink: 0;
 }
 
 .drink-details-container header > .price {
@@ -388,5 +390,22 @@ export default {
 
 .hover-class-2:hover {
   color: #e0c53e;
+}
+
+@media (max-width: 620px) {
+  .drink-thumbnail-container {
+    margin: 0 1rem 0 0;
+  }
+}
+
+@media (max-width: 540px) {
+  .drink-details-container header small {
+    width: 100%;
+    order: 1;
+  }
+}
+
+@media (max-width: 460px) {
+  /* switch tea image to between header and options  */
 }
 </style>
