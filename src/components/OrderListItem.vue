@@ -106,7 +106,7 @@ function drawTeaImage(
   let ice = [];
 
   if (iceLevel != "No ice") {
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 3; i++) {
       ice[i] = roughDraw.path(
         teaImageVals.ice[drinkOptions.size.indexOf(size)][i],
         {
@@ -123,7 +123,7 @@ function drawTeaImage(
   }
 
   if (iceLevel == "Full ice") {
-    for (let i = 2; i < 4; i++) {
+    for (let i = 3; i < 5; i++) {
       ice[i] = roughDraw.path(
         teaImageVals.ice[drinkOptions.size.indexOf(size)][i],
         {
