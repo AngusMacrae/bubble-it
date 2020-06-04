@@ -3,6 +3,7 @@
     <OrderListItem
       v-for="(drink, index) in order"
       :key="index"
+      :index="index"
       :data-index="index"
       :size="drink.size"
       :tea="drink.tea"

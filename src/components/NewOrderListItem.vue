@@ -8,20 +8,25 @@
 </template>
 
 <script>
-import rough from "roughjs/bundled/rough.cjs";
+// import rough from "roughjs/bundled/rough.cjs";
 
-function drawBorderBox(orderItem) {
-  let borderBox = orderItem.querySelector(".order-item-border");
-  borderBox.innerHTML = "";
-  let boxWidth = orderItem.offsetWidth;
-  let boxHeight = orderItem.offsetHeight;
-  let roughDraw = rough.svg(borderBox);
-  borderBox.appendChild(roughDraw.rectangle(0, 0, boxWidth, boxHeight));
-}
+// function drawBorderBox(orderItem) {
+//   let borderBox = orderItem.querySelector(".order-item-border");
+//   borderBox.innerHTML = "";
+//   let boxWidth = orderItem.offsetWidth;
+//   let boxHeight = orderItem.offsetHeight;
+//   let roughDraw = rough.svg(borderBox);
+//   borderBox.appendChild(
+//     roughDraw.rectangle(0, 0, boxWidth, boxHeight, {
+//       stroke: "rgb(60,60,60)",
+//       roughness: 2
+//     })
+//   );
+// }
 
 export default {
   mounted() {
-    drawBorderBox(this.$el);
+    // drawBorderBox(this.$el);
   }
 };
 </script>
@@ -31,14 +36,15 @@ li#new-order-item {
   text-align: center;
   justify-content: center;
   cursor: pointer;
-  transform: scale(0.96);
-  transition: all 0.2s ease-out;
+  /* transform: scale(0.96); */
+  /* transition: all 0.2s ease-out; */
 }
 
 li#new-order-item:hover {
-  transform: scale(1);
+  color: rgb(30, 30, 30);
+  /* transform: scale(1); */
 }
-
+/*
 li#new-order-item .order-item-border {
   opacity: 0;
   transform: rotateY(45deg);
@@ -48,5 +54,5 @@ li#new-order-item:hover .order-item-border {
   opacity: 1;
   transform: rotateY(0deg);
   transition: all 0.2s ease-out;
-}
+} */
 </style>
