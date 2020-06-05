@@ -306,7 +306,7 @@ export default {
 <style scoped>
 .order-item {
   grid-template-rows: auto auto;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto 1fr;
   grid-template-areas:
     "image header"
     "image details";
@@ -362,8 +362,8 @@ header h3 {
 
 .drink-details li {
   margin-top: 0.3em;
-  flex: 0 0 5.5em;
-  margin-right: auto;
+  flex: 1 0 26%;
+  /* margin-right: auto; */
   cursor: pointer;
   user-select: none;
 }
@@ -404,9 +404,9 @@ header h3 {
   color: #e0c53e;
 }
 
-@media (max-width: 680px) {
+@media (max-width: 765px) {
   .drink-details li {
-    flex: 1 0 26%;
+    flex: 1 0 34%;
   }
 }
 
@@ -416,26 +416,20 @@ header h3 {
   }
 }
 
-@media (max-width: 570px) {
-  .drink-details li {
-    flex: 0 0 5em;
-  }
-}
-
-@media (max-width: 550px) {
+@media (max-width: 565px) {
   header small {
     order: 1;
     width: 100%;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 530px) {
   .drink-thumbnail-container {
     margin: 0 1rem 0 0;
   }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 496px) {
   .order-item {
     grid-template-rows: auto auto auto;
     grid-template-columns: auto;
@@ -464,6 +458,22 @@ header h3 {
   }
   .drink-details li {
     flex: 1 0 34%;
+  }
+}
+
+@media (max-width: 365px) {
+  .order-item {
+    padding: 15px 15px 20px;
+  }
+  .drink-details li {
+    /* flex: 0 0 8.7rem; */
+    font-size: 90%;
+  }
+}
+
+@media (max-width: 340px) {
+  .drink-details li {
+    flex: 0 0 8rem;
   }
 }
 </style>
