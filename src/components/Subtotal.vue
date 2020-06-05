@@ -2,16 +2,21 @@
   <li>
     <div>
       Subtotal:
-      <span>£{{subtotal}}</span>
+      <span>£{{ subtotal }}</span>
     </div>
-    <a href="#">Complete order</a>
+    <a @click="redirectPay()">Complete order</a>
   </li>
 </template>
 
 <script>
 export default {
-  name: "Subtotal",
-  props: ["subtotal"]
+  name: 'Subtotal',
+  props: ['subtotal'],
+  methods: {
+    redirectPay() {
+      this.$router.push({ path: '/pay' });
+    },
+  },
 };
 </script>
 
@@ -27,6 +32,7 @@ a {
   text-decoration: none;
   color: rgb(203, 82, 82);
   font-weight: bold;
+  cursor: pointer;
 }
 a:hover {
   color: rgb(243, 122, 122);
