@@ -18,12 +18,14 @@
       @change="changeDrink"
     />
     <NewOrderListItem @add-drink="addDrink" />
+    <Subtotal :subtotal="subtotal()" />
   </ul>
 </template>
 
 <script>
 import OrderListItem from "./OrderListItem.vue";
 import NewOrderListItem from "./NewOrderListItem.vue";
+import Subtotal from "./Subtotal.vue";
 
 import { drinkOptions } from "../drinkOptions";
 
@@ -34,12 +36,6 @@ function nextArrayIndex(currentIndex, array) {
     return +currentIndex + 1;
   }
 }
-
-// Create our number formatter.
-const formatter = new Intl.NumberFormat("en-UK", {
-  style: "currency",
-  currency: "GBP"
-});
 
 export default {
   name: "OrderList",
@@ -53,12 +49,19 @@ export default {
           topping: "Pearls",
           ice: "Half ice",
           sugar: "Half sugar",
-          price: formatter.format(3)
+          price: Number(3).toFixed(2)
         }
       ]
     };
   },
   methods: {
+    subtotal() {
+      let subtotal = 0;
+      this.order.forEach(drink => {
+        subtotal += +drink.price;
+      });
+      return Number(subtotal).toFixed(2);
+    },
     addDrink(
       size = drinkOptions.size[0][0],
       tea = drinkOptions.tea[0][0],
@@ -66,7 +69,7 @@ export default {
       topping = drinkOptions.topping[0][0],
       ice = drinkOptions.ice[0][0],
       sugar = drinkOptions.sugar[0][0],
-      price = formatter.format(3)
+      price = Number(3).toFixed(2)
     ) {
       this.order.push({ size, tea, milk, topping, ice, sugar, price });
       console.log(this.order);
@@ -98,22 +101,23 @@ export default {
         drinkOptions.topping[1][
           drinkOptions.topping[0].indexOf(this.order[indexToChange].topping)
         ];
-      this.order[indexToChange].price = formatter.format(newPrice);
+      this.order[indexToChange].price = Number(newPrice).toFixed(2);
     }
   },
   components: {
     OrderListItem,
-    NewOrderListItem
+    NewOrderListItem,
+    Subtotal
   }
 };
 </script>
 
 <style>
 li.order-item {
-  padding: 15px 20px;
+  padding: 15px 20px 20px;
   margin-bottom: 1rem;
   position: relative;
-  display: flex;
+  display: grid;
 }
 
 .order-item-border {
@@ -125,7 +129,7 @@ li.order-item {
   z-index: -1;
 }
 
-.order-item:nth-of-type(2) > .order-item-border {
+/* .order-item:nth-of-type(2) > .order-item-border {
   background-color: "#f4dada";
-}
+} */
 </style>

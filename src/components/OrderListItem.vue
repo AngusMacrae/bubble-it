@@ -4,12 +4,12 @@
     <div class="drink-thumbnail-container">
       <svg class="drink-thumbnail" />
     </div>
+    <header>
+      <h3 class="drink-title">Drink</h3>
+      <small>(Click to change)</small>
+      <span class="price">£{{price}}</span>
+    </header>
     <div class="drink-details-container">
-      <header>
-        <h3 class="drink-details-title">Drink</h3>
-        <small>(Click to change)</small>
-        <span class="price">{{price}}</span>
-      </header>
       <ul class="drink-details">
         <li @click="changeOption($event, 'size')">{{size}}</li>
         <li @click="changeOption($event, 'tea')">{{tea}}</li>
@@ -49,7 +49,7 @@ function drawBorderBox(orderItem, fillColorIndex) {
       roughness: 4
     })
   );
-  let title = orderItem.querySelector(".drink-details-container header h3");
+  let title = orderItem.querySelector("header h3");
   title.style.color = fillColors[1][fillColorIndex];
   let drinkOptionButtons = orderItem.querySelectorAll(".drink-details li");
   for (let optionButton of drinkOptionButtons) {
@@ -304,7 +304,16 @@ export default {
 </script>
 
 <style scoped>
+.order-item {
+  grid-template-rows: auto auto;
+  grid-template-columns: auto auto;
+  grid-template-areas:
+    "image header"
+    "image details";
+}
+
 .drink-thumbnail-container {
+  grid-area: image;
   margin: 0 3rem 0 2em;
   display: flex;
   flex-direction: column;
@@ -321,29 +330,31 @@ export default {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 0.5em;
+  padding: 0.5em 0.5em 0 0;
 }
 
-.drink-details-container header {
+header {
+  grid-area: header;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
 }
 
-.drink-details-container header > * {
+header > * {
   display: block;
   flex-shrink: 0;
 }
 
-.drink-details-container header > .price {
+header > .price {
   margin-left: auto;
 }
 
-.drink-details-container header h3 {
+header h3 {
   margin-right: 0.5em;
 }
 
 .drink-details {
+  grid-area: details;
   margin-bottom: auto;
   display: flex;
   flex-wrap: wrap;
@@ -351,7 +362,8 @@ export default {
 
 .drink-details li {
   margin-top: 0.3em;
-  width: 50%;
+  flex: 0 0 6em;
+  margin-right: auto;
   cursor: pointer;
   user-select: none;
 }
@@ -392,20 +404,54 @@ export default {
   color: #e0c53e;
 }
 
-@media (max-width: 620px) {
+@media (max-width: 610px) {
+  .drink-thumbnail-container {
+    margin: 0 2rem 0 1rem;
+  }
+}
+
+@media (max-width: 550px) {
+  header small {
+    order: 1;
+    width: 100%;
+  }
+  .drink-details li {
+    flex: 0 0 5em;
+  }
+}
+
+@media (max-width: 480px) {
   .drink-thumbnail-container {
     margin: 0 1rem 0 0;
   }
 }
 
-@media (max-width: 540px) {
-  .drink-details-container header small {
-    width: 100%;
-    order: 1;
+@media (max-width: 450px) {
+  .order-item {
+    grid-template-rows: auto auto auto;
+    grid-template-columns: auto;
+    grid-template-areas:
+      "header"
+      "image"
+      "details";
+  }
+  header small {
+    order: 0;
+    width: auto;
+  }
+  .drink-thumbnail-container {
+    margin: 0;
+    flex-direction: row;
+  }
+  .drink-details-container {
+    padding: 0.5rem 0;
   }
 }
 
-@media (max-width: 460px) {
-  /* switch tea image to between header and options  */
+@media (max-width: 405px) {
+  header small {
+    order: 1;
+    width: 100%;
+  }
 }
 </style>
