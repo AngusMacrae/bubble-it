@@ -362,7 +362,7 @@ header h3 {
 
 .drink-details li {
   margin-top: 0.3em;
-  flex: 0 0 6em;
+  flex: 0 0 5.5em;
   margin-right: auto;
   cursor: pointer;
   user-select: none;
@@ -404,9 +404,21 @@ header h3 {
   color: #e0c53e;
 }
 
-@media (max-width: 610px) {
+@media (max-width: 680px) {
+  .drink-details li {
+    flex: 1 0 26%;
+  }
+}
+
+@media (max-width: 625px) {
   .drink-thumbnail-container {
     margin: 0 2rem 0 1rem;
+  }
+}
+
+@media (max-width: 570px) {
+  .drink-details li {
+    flex: 0 0 5em;
   }
 }
 
@@ -414,9 +426,6 @@ header h3 {
   header small {
     order: 1;
     width: 100%;
-  }
-  .drink-details li {
-    flex: 0 0 5em;
   }
 }
 
@@ -452,6 +461,9 @@ header h3 {
   header small {
     order: 1;
     width: 100%;
+  }
+  .drink-details li {
+    flex: 1 0 34%;
   }
 }
 </style>

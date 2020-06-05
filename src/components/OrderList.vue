@@ -113,6 +113,9 @@ export default {
 </script>
 
 <style>
+#order-items-list {
+  padding-bottom: 3rem;
+}
 li.order-item {
   padding: 15px 20px 20px;
   margin-bottom: 1rem;
@@ -128,8 +131,4 @@ li.order-item {
   height: 100%;
   z-index: -1;
 }
-
-/* .order-item:nth-of-type(2) > .order-item-border {
-  background-color: "#f4dada";
-} */
 </style>
