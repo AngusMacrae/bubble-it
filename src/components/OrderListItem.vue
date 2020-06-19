@@ -7,16 +7,16 @@
     <header>
       <h3 class="drink-title">Drink</h3>
       <small>(Click to change)</small>
-      <span class="price">£{{price}}</span>
+      <span class="price">£{{ price }}</span>
     </header>
     <div class="drink-details-container">
       <ul class="drink-details">
-        <li @click="changeOption($event, 'size')">{{size}}</li>
-        <li @click="changeOption($event, 'tea')">{{tea}}</li>
-        <li @click="changeOption($event, 'milk')">{{milk}}</li>
-        <li @click="changeOption($event, 'topping')">{{topping}}</li>
-        <li @click="changeOption($event, 'ice')">{{ice}}</li>
-        <li @click="changeOption($event, 'sugar')">{{sugar}}</li>
+        <li @click="changeOption($event, 'size')">{{ size }}</li>
+        <li @click="changeOption($event, 'tea')">{{ tea }}</li>
+        <li @click="changeOption($event, 'milk')">{{ milk }}</li>
+        <li @click="changeOption($event, 'topping')">{{ topping }}</li>
+        <li @click="changeOption($event, 'ice')">{{ ice }}</li>
+        <li @click="changeOption($event, 'sugar')">{{ sugar }}</li>
       </ul>
       <div class="drink-buttons">
         <button class="drink-button-remove" @click="$emit('remove')">Remove</button>
@@ -27,279 +27,185 @@
 </template>
 
 <script>
-import rough from "roughjs/bundled/rough.cjs";
+import rough from 'roughjs/bundled/rough.cjs';
 
-import { drinkOptions } from "../drinkOptions";
-import { teaImageVals } from "../teaImageVals";
-import { fillColors } from "../fillColors";
+import { drinkOptions } from '../drinkOptions';
+import { teaImageVals } from '../teaImageVals';
+import { fillColors } from '../fillColors';
 
 function drawBorderBox(orderItem, fillColorIndex) {
-  let borderBox = orderItem.querySelector(".order-item-border");
+  let borderBox = orderItem.querySelector('.order-item-border');
   let fillColor = fillColors[0][fillColorIndex];
-  borderBox.innerHTML = "";
+  borderBox.innerHTML = '';
   let boxWidth = orderItem.offsetWidth;
   let boxHeight = orderItem.offsetHeight;
   let roughDraw = rough.svg(borderBox);
   borderBox.appendChild(
     roughDraw.rectangle(0, 0, boxWidth, boxHeight, {
       fill: fillColor,
-      fillStyle: "cross-hatch",
-      fillWeight: "1",
-      stroke: "rgb(60,60,60)",
-      roughness: 4
+      fillStyle: 'cross-hatch',
+      fillWeight: '1',
+      stroke: 'rgb(60,60,60)',
+      roughness: 4,
     })
   );
-  let title = orderItem.querySelector("header h3");
+  let title = orderItem.querySelector('header h3');
   title.style.color = fillColors[1][fillColorIndex];
-  let drinkOptionButtons = orderItem.querySelectorAll(".drink-details li");
+  let drinkOptionButtons = orderItem.querySelectorAll('.drink-details li');
   for (let optionButton of drinkOptionButtons) {
-    optionButton.classList.add("hover-class-" + fillColorIndex);
+    optionButton.classList.add('hover-class-' + fillColorIndex);
   }
 }
 
-function drawTeaImage(
-  orderItem,
-  size,
-  teaType,
-  milk,
-  topping,
-  iceLevel,
-  index
-) {
-  let drinkThumbnail = orderItem.querySelector(".drink-thumbnail");
-  drinkThumbnail.innerHTML = "";
+function drawTeaImage(orderItem, size, teaType, milk, topping, iceLevel, index) {
+  let drinkThumbnail = orderItem.querySelector('.drink-thumbnail');
+  drinkThumbnail.innerHTML = '';
   let roughDraw = rough.svg(drinkThumbnail);
 
-  let straw = roughDraw.path(
-    teaImageVals.straw[index % 2][drinkOptions.size[0].indexOf(size)],
-    {
-      strokeWidth: "1",
-      stroke: "rgb(60,60,60)"
-    }
-  );
-  straw.classList.add("straw");
+  let straw = roughDraw.path(teaImageVals.straw[index % 2][drinkOptions.size[0].indexOf(size)], {
+    strokeWidth: '1',
+    stroke: 'rgb(60,60,60)',
+  });
+  straw.classList.add('straw');
   drinkThumbnail.appendChild(straw);
 
-  let tea = roughDraw.path(
-    teaImageVals.tea[drinkOptions.size[0].indexOf(size)],
-    {
-      fill: teaImageVals.teaColor[drinkOptions.tea[0].indexOf(teaType)],
-      fillStyle: "solid",
-      strokeWidth: 0,
-      roughness: 0
-    }
-  );
-  tea.classList.add("tea");
+  let tea = roughDraw.path(teaImageVals.tea[drinkOptions.size[0].indexOf(size)], {
+    fill: teaImageVals.teaColor[drinkOptions.tea[0].indexOf(teaType)],
+    fillStyle: 'solid',
+    strokeWidth: 0,
+    roughness: 0,
+  });
+  tea.classList.add('tea');
   drinkThumbnail.appendChild(tea);
 
-  if (milk == "Fresh milk") {
-    let milkCap = roughDraw.path(
-      teaImageVals.milk[drinkOptions.size[0].indexOf(size)],
-      {
-        fill: "rgba(255,250,250,0.9)",
-        fillStyle: "solid",
-        strokeWidth: 0,
-        roughness: 0
-      }
-    );
-    milkCap.classList.add("milk");
+  if (milk == 'Fresh milk') {
+    let milkCap = roughDraw.path(teaImageVals.milk[drinkOptions.size[0].indexOf(size)], {
+      fill: 'rgba(255,250,250,0.9)',
+      fillStyle: 'solid',
+      strokeWidth: 0,
+      roughness: 0,
+    });
+    milkCap.classList.add('milk');
     drinkThumbnail.appendChild(milkCap);
   }
 
   let ice = [];
 
-  if (iceLevel != "No ice") {
+  if (iceLevel != 'No ice') {
     for (let i = 0; i < 3; i++) {
-      ice[i] = roughDraw.path(
-        teaImageVals.ice[drinkOptions.size[0].indexOf(size)][i],
-        {
-          fill: "rgba(245,245,255,0.95)",
-          fillStyle: "solid",
-          stroke: "rgba(60,60,60,0.3)",
-          strokeWidth: 0.5,
-          roughness: 0.5
-        }
-      );
+      ice[i] = roughDraw.path(teaImageVals.ice[drinkOptions.size[0].indexOf(size)][i], {
+        fill: 'rgba(245,245,255,0.95)',
+        fillStyle: 'solid',
+        stroke: 'rgba(60,60,60,0.3)',
+        strokeWidth: 0.5,
+        roughness: 0.5,
+      });
       drinkThumbnail.appendChild(ice[i]);
-      drinkThumbnail.lastElementChild.classList.add("ice" + i);
+      drinkThumbnail.lastElementChild.classList.add('ice' + i);
     }
   }
 
-  if (iceLevel == "Full ice") {
+  if (iceLevel == 'Full ice') {
     for (let i = 3; i < 5; i++) {
-      ice[i] = roughDraw.path(
-        teaImageVals.ice[drinkOptions.size[0].indexOf(size)][i],
-        {
-          fill: "rgba(245,245,255,0.95)",
-          fillStyle: "solid",
-          stroke: "rgba(60,60,60,0.3)",
-          strokeWidth: 0.5,
-          roughness: 0.5
-        }
-      );
+      ice[i] = roughDraw.path(teaImageVals.ice[drinkOptions.size[0].indexOf(size)][i], {
+        fill: 'rgba(245,245,255,0.95)',
+        fillStyle: 'solid',
+        stroke: 'rgba(60,60,60,0.3)',
+        strokeWidth: 0.5,
+        roughness: 0.5,
+      });
       drinkThumbnail.appendChild(ice[i]);
-      drinkThumbnail.lastElementChild.classList.add("ice" + i);
+      drinkThumbnail.lastElementChild.classList.add('ice' + i);
     }
   }
 
-  if (topping == "Pearls") {
-    let adjuster = size == "Regular" ? 6 : 0;
+  if (topping == 'Pearls') {
+    let adjuster = size == 'Regular' ? 6 : 0;
     for (let i = 0; i < teaImageVals.topping.pearls.length - adjuster; i++) {
       let pearl = roughDraw.circle(...teaImageVals.topping.pearls[i], 7, {
-        fill: "rgba(37,23,26,0.9)",
+        fill: 'rgba(37,23,26,0.9)',
         strokeWidth: 0,
         roughness: 0.3,
-        fillStyle: "solid"
+        fillStyle: 'solid',
       });
       drinkThumbnail.appendChild(pearl);
-      drinkThumbnail.lastElementChild.classList.add("pearl" + i);
+      drinkThumbnail.lastElementChild.classList.add('pearl' + i);
     }
-  } else if (topping == "Coconut jelly") {
-    let adjuster = size == "Regular" ? 3 : 0;
-    for (
-      let i = 0;
-      i < teaImageVals.topping.coconutJelly.length - adjuster;
-      i++
-    ) {
-      let jelly = roughDraw.rectangle(
-        ...teaImageVals.topping.coconutJelly[i],
-        12,
-        6,
-        {
-          fill: "rgba(245,255,245,0.95)",
-          strokeWidth: 0.5,
-          stroke: "rgba(60,60,60,0.3)",
-          roughness: 0.4,
-          fillStyle: "solid"
-        }
-      );
-      drinkThumbnail.appendChild(jelly);
-      drinkThumbnail.lastElementChild.classList.add("jelly" + i);
-    }
-    adjuster = size == "Regular" ? 1 : 0;
-    for (
-      let i = 0;
-      i < teaImageVals.topping.coconutJellySlanted.length - adjuster;
-      i++
-    ) {
-      let jelly = roughDraw.path(teaImageVals.topping.coconutJellySlanted[i], {
-        fill: "rgba(245,255,245,0.95)",
+  } else if (topping == 'Coconut jelly') {
+    let adjuster = size == 'Regular' ? 3 : 0;
+    for (let i = 0; i < teaImageVals.topping.coconutJelly.length - adjuster; i++) {
+      let jelly = roughDraw.rectangle(...teaImageVals.topping.coconutJelly[i], 12, 6, {
+        fill: 'rgba(245,255,245,0.95)',
         strokeWidth: 0.5,
-        stroke: "rgba(60,60,60,0.3)",
+        stroke: 'rgba(60,60,60,0.3)',
         roughness: 0.4,
-        fillStyle: "solid"
+        fillStyle: 'solid',
       });
       drinkThumbnail.appendChild(jelly);
-      drinkThumbnail.lastElementChild.classList.add("jelly-slanted" + i);
+      drinkThumbnail.lastElementChild.classList.add('jelly' + i);
+    }
+    adjuster = size == 'Regular' ? 1 : 0;
+    for (let i = 0; i < teaImageVals.topping.coconutJellySlanted.length - adjuster; i++) {
+      let jelly = roughDraw.path(teaImageVals.topping.coconutJellySlanted[i], {
+        fill: 'rgba(245,255,245,0.95)',
+        strokeWidth: 0.5,
+        stroke: 'rgba(60,60,60,0.3)',
+        roughness: 0.4,
+        fillStyle: 'solid',
+      });
+      drinkThumbnail.appendChild(jelly);
+      drinkThumbnail.lastElementChild.classList.add('jelly-slanted' + i);
     }
   }
 
-  let cup = roughDraw.path(
-    teaImageVals.cup[drinkOptions.size[0].indexOf(size)],
-    {
-      stroke: "rgb(60,60,60)"
-    }
-  );
-  cup.classList.add("cup");
+  let cup = roughDraw.path(teaImageVals.cup[drinkOptions.size[0].indexOf(size)], {
+    stroke: 'rgb(60,60,60)',
+  });
+  cup.classList.add('cup');
   drinkThumbnail.appendChild(cup);
 }
 
 export default {
-  name: "OrderListItem",
-  props: [
-    "index",
-    "size",
-    "tea",
-    "milk",
-    "topping",
-    "ice",
-    "sugar",
-    "fillColor",
-    "price"
-  ],
+  name: 'OrderListItem',
+  props: ['index', 'size', 'tea', 'milk', 'topping', 'ice', 'sugar', 'fillColor', 'price'],
   watch: {
+    index: function() {
+      setTimeout(() => {
+        drawBorderBox(this.$el, this.fillColor);
+      }, 500);
+    },
     size: function() {
-      console.log(this.size);
-      drawTeaImage(
-        this.$el,
-        this.size,
-        this.tea,
-        this.milk,
-        this.topping,
-        this.ice,
-        this.index
-      );
+      // console.log(this.size);
+      drawTeaImage(this.$el, this.size, this.tea, this.milk, this.topping, this.ice, this.index);
     },
     tea: function() {
-      console.log(this.tea);
-      drawTeaImage(
-        this.$el,
-        this.size,
-        this.tea,
-        this.milk,
-        this.topping,
-        this.ice,
-        this.index
-      );
+      // console.log(this.tea);
+      drawTeaImage(this.$el, this.size, this.tea, this.milk, this.topping, this.ice, this.index);
     },
     milk: function() {
-      console.log(this.milk);
-      drawTeaImage(
-        this.$el,
-        this.size,
-        this.tea,
-        this.milk,
-        this.topping,
-        this.ice,
-        this.index
-      );
+      // console.log(this.milk);
+      drawTeaImage(this.$el, this.size, this.tea, this.milk, this.topping, this.ice, this.index);
     },
     topping: function() {
-      console.log(this.topping);
-      drawTeaImage(
-        this.$el,
-        this.size,
-        this.tea,
-        this.milk,
-        this.topping,
-        this.ice,
-        this.index
-      );
+      // console.log(this.topping);
+      drawTeaImage(this.$el, this.size, this.tea, this.milk, this.topping, this.ice, this.index);
     },
     ice: function() {
-      console.log(this.ice);
-      drawTeaImage(
-        this.$el,
-        this.size,
-        this.tea,
-        this.milk,
-        this.topping,
-        this.ice,
-        this.index
-      );
-    }
+      // console.log(this.ice);
+      drawTeaImage(this.$el, this.size, this.tea, this.milk, this.topping, this.ice, this.index);
+    },
   },
   methods: {
     changeOption(event, propertyToChange) {
-      let indexToChange = event.target.closest(".order-item").dataset.index;
-      let currentIndex = drinkOptions[propertyToChange][0].indexOf(
-        event.target.textContent
-      );
-      this.$emit("change", indexToChange, propertyToChange, currentIndex);
-    }
+      let indexToChange = event.target.closest('.order-item').dataset.index;
+      let currentIndex = drinkOptions[propertyToChange][0].indexOf(event.target.textContent);
+      this.$emit('change', indexToChange, propertyToChange, currentIndex);
+    },
   },
   mounted() {
     drawBorderBox(this.$el, this.fillColor);
-    drawTeaImage(
-      this.$el,
-      this.size,
-      this.tea,
-      this.milk,
-      this.topping,
-      this.ice,
-      this.index
-    );
-  }
+    drawTeaImage(this.$el, this.size, this.tea, this.milk, this.topping, this.ice, this.index);
+  },
 };
 </script>
 
@@ -308,8 +214,8 @@ export default {
   grid-template-rows: auto auto;
   grid-template-columns: auto 1fr;
   grid-template-areas:
-    "image header"
-    "image details";
+    'image header'
+    'image details';
 }
 
 .drink-thumbnail-container {
@@ -434,9 +340,9 @@ header h3 {
     grid-template-rows: auto auto auto;
     grid-template-columns: auto;
     grid-template-areas:
-      "header"
-      "image"
-      "details";
+      'header'
+      'image'
+      'details';
   }
   header small {
     order: 0;
