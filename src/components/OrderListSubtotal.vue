@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: "Subtotal",
+  name: "OrderListSubtotal",
   props: ["subtotal"]
 };
 </script>

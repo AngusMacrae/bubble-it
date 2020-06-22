@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="container">
-      <Header />
+      <SiteHeader />
       <OrderListHeader />
       <OrderList />
     </div>
@@ -9,14 +9,14 @@
 </template>
 
 <script>
-import Header from "./components/Header.vue";
-import OrderList from "./components/OrderList.vue";
+import SiteHeader from "./components/SiteHeader.vue";
 import OrderListHeader from "./components/OrderListHeader.vue";
+import OrderList from "./components/OrderList.vue";
 
 export default {
   name: "App",
   components: {
-    Header,
+    SiteHeader,
     OrderList,
     OrderListHeader
   }
