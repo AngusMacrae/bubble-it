@@ -57,10 +57,8 @@ export default {
   },
   methods: {
     subtotal() {
-      let subtotal = 0;
-      this.order.forEach(drink => {
-        subtotal += +drink.price;
-      });
+      let prices = this.order.map(drink => +drink.price);
+      let subtotal = prices.reduce((subtotal, price) => subtotal + price);
       return Number(subtotal).toFixed(2);
     },
     addDrink(
