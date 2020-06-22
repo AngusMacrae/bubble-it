@@ -1,6 +1,6 @@
 <template>
   <li class="order-item saved-order-item">
-    <SketchedBox :fillColorIndex="fillColorIndex" />
+    <SketchedBox :fillColour="fillColour" />
     <div class="drink-thumbnail-container">
       <svg class="drink-thumbnail" />
     </div>
@@ -41,19 +41,9 @@ export default {
       drinkImage: ""
     };
   },
-  props: [
-    "index",
-    "size",
-    "tea",
-    "milk",
-    "topping",
-    "ice",
-    "sugar",
-    "fillColorIndex",
-    "price"
-  ],
+  props: ["index", "size", "tea", "milk", "topping", "ice", "sugar", "price"],
   watch: {
-    fillColorIndex: function() {
+    index: function() {
       setTimeout(this.updateColours, 500);
     },
     size: function() {
@@ -72,6 +62,14 @@ export default {
       this.drawDrinkImage();
     }
   },
+  computed: {
+    fillColour() {
+      return fillColors[0][this.index % 3];
+    },
+    highlightColour() {
+      return fillColors[1][this.index % 3];
+    }
+  },
   methods: {
     changeOption(event, propertyToChange) {
       let indexToChange = event.target.closest(".order-item").dataset.index;
@@ -82,12 +80,11 @@ export default {
     },
     updateColours() {
       // console.log(this);
-      // console.log(fillColors[1][this.fillColorIndex]);
       let itemTitle = this.$el.querySelector(".drink-title");
-      itemTitle.style.color = fillColors[1][this.fillColorIndex];
+      itemTitle.style.color = this.highlightColour;
       let drinkOptionButtons = this.$el.querySelectorAll(".drink-details li");
       for (let optionButton of drinkOptionButtons) {
-        optionButton.classList.add("hover-class-" + this.fillColorIndex);
+        optionButton.classList.add("hover-class-" + (this.index % 3));
       }
     },
     drawDrinkImage() {
@@ -255,7 +252,6 @@ export default {
     }
   },
   mounted() {
-    // console.log(this.fillColorIndex);
     this.drinkImage = this.$el.querySelector(".drink-thumbnail");
     this.updateColours();
     this.drawDrinkImage();

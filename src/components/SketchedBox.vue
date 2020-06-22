@@ -4,11 +4,10 @@
 
 <script>
 import rough from "roughjs/bundled/rough.cjs";
-import { fillColors } from "../fillColors";
 
 export default {
   name: "SketchedBox",
-  props: ["fillColorIndex"],
+  props: ["fillColour"],
   methods: {
     drawBox() {
       let boxElement = this.$el;
@@ -18,7 +17,7 @@ export default {
       // console.log(this);
       boxElement.appendChild(
         roughDraw.rectangle(0, 0, boxDimensions.width, boxDimensions.height, {
-          fill: fillColors[0][this.fillColorIndex],
+          fill: this.fillColour,
           fillStyle: "cross-hatch",
           fillWeight: "1",
           stroke: "rgb(60,60,60)",
@@ -28,7 +27,7 @@ export default {
     }
   },
   watch: {
-    fillColorIndex: function() {
+    fillColour: function() {
       setTimeout(this.drawBox, 500);
     }
   },

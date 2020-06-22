@@ -11,7 +11,6 @@
       :topping="drink.topping"
       :ice="drink.ice"
       :sugar="drink.sugar"
-      :fillColorIndex="index % 3"
       :price="drink.price"
       @remove="removeDrink(index)"
       @duplicate="duplicateDrink(index)"
