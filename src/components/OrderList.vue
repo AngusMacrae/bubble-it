@@ -11,7 +11,7 @@
       :topping="drink.topping"
       :ice="drink.ice"
       :sugar="drink.sugar"
-      :fillColor="index % 3"
+      :fillColorIndex="index % 3"
       :price="drink.price"
       @remove="removeDrink(index)"
       @duplicate="duplicateDrink(index)"
@@ -139,15 +139,6 @@ li.order-item {
   margin-bottom: 1rem;
   position: relative;
   display: grid;
-}
-
-.order-item-border {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
 }
 
 .fade-grey-enter-active {

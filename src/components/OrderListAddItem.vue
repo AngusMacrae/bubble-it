@@ -1,6 +1,6 @@
 <template>
   <li class="order-item" id="new-order-item" @click="$emit('add-drink')">
-    <svg class="order-item-border" />
+    <!-- <SketchedBox /> -->
     <p>
       <span class="plus">+</span>Add a cup!
     </p>
@@ -8,6 +8,7 @@
 </template>
 
 <script>
+// import SketchedBox from "./SketchedBox.vue";
 // import rough from "roughjs/bundled/rough.cjs";
 
 // function drawBorderBox(orderItem) {
@@ -25,6 +26,9 @@
 // }
 
 export default {
+  components: {
+    // SketchedBox
+  },
   mounted() {
     // drawBorderBox(this.$el);
   }
