@@ -11,12 +11,12 @@
     </header>
     <div class="drink-details-container">
       <ul class="drink-details">
-        <li @click="changeOption($event, 'size', size)">{{ sizeText }}</li>
-        <li @click="changeOption($event, 'tea', tea)">{{ teaText }}</li>
-        <li @click="changeOption($event, 'milk', milk)">{{ milkText }}</li>
-        <li @click="changeOption($event, 'topping', topping)">{{ toppingText }}</li>
-        <li @click="changeOption($event, 'ice', ice)">{{ iceText }}</li>
-        <li @click="changeOption($event, 'sugar', sugar)">{{ sugarText }}</li>
+        <li @click="$emit('change', index, 'size', size)">{{ sizeText }}</li>
+        <li @click="$emit('change', index, 'tea', tea)">{{ teaText }}</li>
+        <li @click="$emit('change', index, 'milk', milk)">{{ milkText }}</li>
+        <li @click="$emit('change', index, 'topping', topping)">{{ toppingText }}</li>
+        <li @click="$emit('change', index, 'ice', ice)">{{ iceText }}</li>
+        <li @click="$emit('change', index, 'sugar', sugar)">{{ sugarText }}</li>
       </ul>
       <div class="drink-buttons">
         <button class="drink-button-remove" @click="$emit('remove')">Remove</button>
@@ -96,9 +96,6 @@ export default {
     }
   },
   methods: {
-    changeOption(event, optionToChange, currentIndex) {
-      this.$emit("change", this.index, optionToChange, currentIndex);
-    },
     drawDrinkImage() {
       this.drinkImage.innerHTML = "";
       this.drawStraw();

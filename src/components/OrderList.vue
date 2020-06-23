@@ -98,7 +98,6 @@ export default {
       newPrice += drinkOptions.milk[drink.milk].price;
       newPrice += drinkOptions.topping[drink.topping].price;
       drink.price = Number(newPrice).toFixed(2);
-      // console.log(drink);
     }
   },
   components: {
