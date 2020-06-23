@@ -14,7 +14,7 @@
       :price="drink.price"
       @remove="removeDrink(index)"
       @duplicate="duplicateDrink(index)"
-      @change="changeDrink"
+      @change="changeDrinkOption"
     />
     <OrderListAddItem @add-drink="addDrink" :key="'newItem'" />
     <OrderListSubtotal :subtotal="subtotal()" :key="'subtotal'" />
@@ -26,17 +26,10 @@ import OrderListItem from "./OrderListItem.vue";
 import OrderListAddItem from "./OrderListAddItem.vue";
 import OrderListSubtotal from "./OrderListSubtotal.vue";
 import { v4 as uuid } from "uuid";
-import { drinkOptions } from "../data/drinkOptions";
+import drinkOptions from "../data/drinkOptions.json";
 
 class Drink {
-  constructor(
-    size = drinkOptions.size[0][0],
-    tea = drinkOptions.tea[0][0],
-    milk = drinkOptions.milk[0][0],
-    topping = drinkOptions.topping[0][0],
-    ice = drinkOptions.ice[0][0],
-    sugar = drinkOptions.sugar[0][0]
-  ) {
+  constructor(size = 0, tea = 0, milk = 0, topping = 0, ice = 0, sugar = 0) {
     this.id = uuid();
     this.price = Number(3).toFixed(2);
     this.size = size;
@@ -45,6 +38,7 @@ class Drink {
     this.topping = topping;
     this.ice = ice;
     this.sugar = sugar;
+    // TODO: gather options into options object
     // this.options = {
     //   size,
     //   tea,
@@ -79,39 +73,30 @@ export default {
     },
     addDrink(size, tea, milk, topping, ice, sugar) {
       this.order.push(new Drink(size, tea, milk, topping, ice, sugar));
-      console.log(this.order);
     },
     removeDrink(indexToRemove) {
       this.order = this.order.filter((drink, index) => index != indexToRemove);
-      console.log(this.order);
     },
     duplicateDrink(indexToDuplicate) {
       let drinkToDuplicate = this.order[indexToDuplicate];
       let duplicate = new Drink();
       Object.assign(duplicate, drinkToDuplicate);
+      duplicate.id = uuid();
       this.order.push(duplicate);
-      console.log(this.order);
     },
-    changeDrink(indexToChange, propertyToChange, currentIndex) {
-      this.order[indexToChange][propertyToChange] =
-        drinkOptions[propertyToChange][0][
-          nextArrayIndex(currentIndex, drinkOptions[propertyToChange][0])
-        ];
+    changeDrinkOption(drinkIndex, optionToChange, currentOptionIndex) {
+      const drink = this.order[drinkIndex];
+      const optionsArray = drinkOptions[optionToChange];
+      drink[optionToChange] = nextArrayIndex(currentOptionIndex, optionsArray);
+
       let newPrice = 0;
-      newPrice +=
-        drinkOptions.size[1][
-          drinkOptions.size[0].indexOf(this.order[indexToChange].size)
-        ];
-      newPrice +=
-        drinkOptions.milk[1][
-          drinkOptions.milk[0].indexOf(this.order[indexToChange].milk)
-        ];
-      newPrice +=
-        drinkOptions.topping[1][
-          drinkOptions.topping[0].indexOf(this.order[indexToChange].topping)
-        ];
-      this.order[indexToChange].price = Number(newPrice).toFixed(2);
-      console.log(this.order[indexToChange]);
+      // TODO: refactor newPrice calculation
+      // newPrice = drink.reduce();
+      newPrice += drinkOptions.size[drink.size].price;
+      newPrice += drinkOptions.milk[drink.milk].price;
+      newPrice += drinkOptions.topping[drink.topping].price;
+      drink.price = Number(newPrice).toFixed(2);
+      // console.log(drink);
     }
   },
   components: {

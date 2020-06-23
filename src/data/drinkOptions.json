@@ -1,0 +1,89 @@
+{
+  "size": [
+    {
+      "optionName": "regular",
+      "text": "Regular",
+      "price": 2
+    },
+    {
+      "optionName": "large",
+      "text": "Large",
+      "price": 2.5
+    }
+  ],
+  "tea": [
+    {
+      "optionName": "black",
+      "text": "Black tea",
+      "price": 0
+    },
+    {
+      "optionName": "green",
+      "text": "Green tea",
+      "price": 0
+    }
+  ],
+  "milk": [
+    {
+      "optionName": "fresh",
+      "text": "Fresh milk",
+      "price": 0.5
+    },
+    {
+      "optionName": "none",
+      "text": "No milk",
+      "price": 0
+    }
+  ],
+  "topping": [
+    {
+      "optionName": "pearls",
+      "text": "Pearls",
+      "price": 0.5
+    },
+    {
+      "optionName": "jelly",
+      "text": "Coconut jelly",
+      "price": 0.5
+    },
+    {
+      "optionName": "none",
+      "text": "No topping",
+      "price": 0
+    }
+  ],
+  "ice": [
+    {
+      "optionName": "full",
+      "text": "Full ice",
+      "price": 0
+    },
+    {
+      "optionName": "half",
+      "text": "Half ice",
+      "price": 0
+    },
+    {
+      "optionName": "none",
+      "text": "No ice",
+      "price": 0
+    }
+  ],
+  "sugar": [
+    {
+      "optionName": "full",
+      "text": "Full sugar",
+      "price": 0
+    },
+    {
+      "optionName": "half",
+      "text": "Half sugar",
+      "price": 0
+    },
+    {
+      "optionName": "none",
+      "text": "No sugar",
+      "price": 0
+    }
+  ]
+}
