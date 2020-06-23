@@ -17,7 +17,7 @@
       @change="changeDrinkOption"
     />
     <OrderListAddItem @add-drink="addDrink" :key="'newItem'" />
-    <OrderListSubtotal :subtotal="subtotal()" :key="'subtotal'" />
+    <OrderListSubtotal :subtotal="subtotal" :key="'subtotal'" />
   </transition-group>
 </template>
 
@@ -65,12 +65,14 @@ export default {
       order: [new Drink()]
     };
   },
-  methods: {
+  computed: {
     subtotal() {
       let prices = this.order.map(drink => +drink.price);
       let subtotal = prices.reduce((subtotal, price) => subtotal + price);
       return Number(subtotal).toFixed(2);
-    },
+    }
+  },
+  methods: {
     addDrink(size, tea, milk, topping, ice, sugar) {
       this.order.push(new Drink(size, tea, milk, topping, ice, sugar));
     },
