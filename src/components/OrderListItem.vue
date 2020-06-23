@@ -1,5 +1,5 @@
 <template>
-  <li class="order-item saved-order-item">
+  <li class="order-item saved-order-item" :style="cssVars">
     <SketchedBox :fillColour="fillColour" />
     <div class="drink-thumbnail-container">
       <svg class="drink-thumbnail" />
@@ -39,13 +39,14 @@ export default {
   data() {
     return {
       drinkImage: "",
-      roughDraw: ""
+      roughDraw: "",
+      colourIndex: this.index % 3
     };
   },
   props: ["index", "size", "tea", "milk", "topping", "ice", "sugar", "price"],
   watch: {
     index: function() {
-      setTimeout(this.updateColours, 500);
+      setTimeout(() => (this.colourIndex = this.index % 3), 500);
     },
     size: function() {
       this.drawDrinkImage();
@@ -83,23 +84,20 @@ export default {
       return drinkOptions.sugar[this.sugar].text;
     },
     fillColour() {
-      return themeColours.fill[this.index % 3];
+      return themeColours.fill[this.colourIndex];
     },
     highlightColour() {
-      return themeColours.highlight[this.index % 3];
+      return themeColours.highlight[this.colourIndex];
+    },
+    cssVars() {
+      return {
+        "--highlight-colour": this.highlightColour
+      };
     }
   },
   methods: {
     changeOption(event, optionToChange, currentIndex) {
       this.$emit("change", this.index, optionToChange, currentIndex);
-    },
-    updateColours() {
-      let itemTitle = this.$el.querySelector(".drink-title");
-      itemTitle.style.color = this.highlightColour;
-      let drinkOptionButtons = this.$el.querySelectorAll(".drink-details li");
-      for (let optionButton of drinkOptionButtons) {
-        optionButton.classList.add("hover-class-" + (this.index % 3));
-      }
     },
     drawDrinkImage() {
       this.drinkImage.innerHTML = "";
@@ -250,7 +248,6 @@ export default {
   mounted() {
     this.drinkImage = this.$el.querySelector(".drink-thumbnail");
     this.roughDraw = rough.svg(this.drinkImage);
-    this.updateColours();
     this.drawDrinkImage();
   },
   components: {
@@ -305,8 +302,9 @@ header > .price {
   margin-left: auto;
 }
 
-header h3 {
+.drink-title {
   margin-right: 0.5em;
+  color: var(--highlight-colour);
 }
 
 .drink-details {
@@ -322,6 +320,10 @@ header h3 {
   /* margin-right: auto; */
   cursor: pointer;
   user-select: none;
+}
+
+.drink-details li:hover {
+  color: var(--highlight-colour);
 }
 
 .drink-buttons {
@@ -346,18 +348,6 @@ header h3 {
 .drink-buttons button:first-of-type {
   margin-left: auto;
   margin-right: 1em;
-}
-
-.hover-class-0:hover {
-  color: #cb5252;
-}
-
-.hover-class-1:hover {
-  color: #44c5bf;
-}
-
-.hover-class-2:hover {
-  color: #e0c53e;
 }
 
 @media (max-width: 765px) {

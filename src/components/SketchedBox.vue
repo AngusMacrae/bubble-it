@@ -28,7 +28,7 @@ export default {
   },
   watch: {
     fillColour: function() {
-      setTimeout(this.drawBox, 500);
+      this.drawBox();
     }
   },
   mounted() {
