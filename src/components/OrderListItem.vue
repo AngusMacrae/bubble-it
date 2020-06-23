@@ -11,12 +11,12 @@
     </header>
     <div class="drink-details-container">
       <ul class="drink-details">
-        <li @click="$emit('change', index, 'size', size)">{{ sizeText }}</li>
-        <li @click="$emit('change', index, 'tea', tea)">{{ teaText }}</li>
-        <li @click="$emit('change', index, 'milk', milk)">{{ milkText }}</li>
-        <li @click="$emit('change', index, 'topping', topping)">{{ toppingText }}</li>
-        <li @click="$emit('change', index, 'ice', ice)">{{ iceText }}</li>
-        <li @click="$emit('change', index, 'sugar', sugar)">{{ sugarText }}</li>
+        <li @click="$emit('change', index, 'size', options.size)">{{ sizeText }}</li>
+        <li @click="$emit('change', index, 'tea', options.tea)">{{ teaText }}</li>
+        <li @click="$emit('change', index, 'milk', options.milk)">{{ milkText }}</li>
+        <li @click="$emit('change', index, 'topping', options.topping)">{{ toppingText }}</li>
+        <li @click="$emit('change', index, 'ice', options.ice)">{{ iceText }}</li>
+        <li @click="$emit('change', index, 'sugar', options.sugar)">{{ sugarText }}</li>
       </ul>
       <div class="drink-buttons">
         <button class="drink-button-remove" @click="$emit('remove')">Remove</button>
@@ -43,45 +43,36 @@ export default {
       colourIndex: this.index % 3
     };
   },
-  props: ["index", "size", "tea", "milk", "topping", "ice", "sugar", "price"],
+  props: ["index", "price", "options"],
   watch: {
     index: function() {
       setTimeout(() => (this.colourIndex = this.index % 3), 500);
     },
-    size: function() {
-      this.drawDrinkImage();
-    },
-    tea: function() {
-      this.drawDrinkImage();
-    },
-    milk: function() {
-      this.drawDrinkImage();
-    },
-    topping: function() {
-      this.drawDrinkImage();
-    },
-    ice: function() {
-      this.drawDrinkImage();
+    options: {
+      deep: true,
+      handler() {
+        this.drawDrinkImage();
+      }
     }
   },
   computed: {
     sizeText() {
-      return drinkOptions.size[this.size].text;
+      return drinkOptions.size[this.options.size].text;
     },
     teaText() {
-      return drinkOptions.tea[this.tea].text;
+      return drinkOptions.tea[this.options.tea].text;
     },
     milkText() {
-      return drinkOptions.milk[this.milk].text;
+      return drinkOptions.milk[this.options.milk].text;
     },
     toppingText() {
-      return drinkOptions.topping[this.topping].text;
+      return drinkOptions.topping[this.options.topping].text;
     },
     iceText() {
-      return drinkOptions.ice[this.ice].text;
+      return drinkOptions.ice[this.options.ice].text;
     },
     sugarText() {
-      return drinkOptions.sugar[this.sugar].text;
+      return drinkOptions.sugar[this.options.sugar].text;
     },
     fillColour() {
       return themeColours.fill[this.colourIndex];
@@ -106,7 +97,8 @@ export default {
       this.drawCup();
     },
     drawStraw() {
-      let svgPath = drinkImageConstants.straw[this.index % 2][this.size];
+      let svgPath =
+        drinkImageConstants.straw[this.index % 2][this.options.size];
       let svgOptions = {
         strokeWidth: "1",
         stroke: "rgb(60,60,60)"
@@ -116,9 +108,9 @@ export default {
       this.drinkImage.appendChild(straw);
     },
     drawTea() {
-      let svgPath = drinkImageConstants.tea[this.size];
+      let svgPath = drinkImageConstants.tea[this.options.size];
       let svgOptions = {
-        fill: drinkImageConstants.teaColor[this.tea],
+        fill: drinkImageConstants.teaColor[this.options.tea],
         fillStyle: "solid",
         strokeWidth: 0,
         roughness: 0
@@ -129,7 +121,7 @@ export default {
     },
     drawMilk() {
       if (this.milk == 0) {
-        let svgPath = drinkImageConstants.milk[this.size];
+        let svgPath = drinkImageConstants.milk[this.options.size];
         let svgOptions = {
           fill: "rgba(255,250,250,0.9)",
           fillStyle: "solid",
@@ -142,7 +134,7 @@ export default {
       }
     },
     drawIce() {
-      switch (this.ice) {
+      switch (this.options.ice) {
         case 2:
           break;
         case 1:
@@ -155,7 +147,7 @@ export default {
     },
     drawIceCubes(firstCubeIndex, lastCubeIndex) {
       for (let i = firstCubeIndex; i <= lastCubeIndex; i++) {
-        let svgPath = drinkImageConstants.ice[this.size][i];
+        let svgPath = drinkImageConstants.ice[this.options.size][i];
         let svgOptions = {
           fill: "rgba(245,245,255,0.95)",
           fillStyle: "solid",
@@ -169,7 +161,7 @@ export default {
       }
     },
     drawTopping() {
-      switch (this.topping) {
+      switch (this.options.topping) {
         case 0:
           this.drawPearls();
           break;
@@ -180,7 +172,7 @@ export default {
     },
     drawPearls() {
       let lastPearlIndex = drinkImageConstants.topping.pearls.length;
-      let lastPearlToDraw = lastPearlIndex - (this.size == 0 ? 6 : 0);
+      let lastPearlToDraw = lastPearlIndex - (this.options.size == 0 ? 6 : 0);
       for (let i = 0; i < lastPearlToDraw; i++) {
         let svgCircle = [...drinkImageConstants.topping.pearls[i], 7];
         let svgOptions = {
@@ -196,7 +188,7 @@ export default {
     },
     drawJelly() {
       let lastJellyIndex = drinkImageConstants.topping.coconutJelly.length;
-      let lastJellyToDraw = lastJellyIndex - (this.size == 0 ? 3 : 0);
+      let lastJellyToDraw = lastJellyIndex - (this.options.size == 0 ? 3 : 0);
       for (let i = 0; i < lastJellyToDraw; i++) {
         let svgRectangle = [
           ...drinkImageConstants.topping.coconutJelly[i],
@@ -215,7 +207,7 @@ export default {
         this.drinkImage.lastElementChild.classList.add("jelly" + i);
       }
       // TODO: draw slanted jelly in the same loop as normal jelly?
-      // adjuster = this.size == 0 ? 1 : 0;
+      // adjuster = this.options.size == 0 ? 1 : 0;
       // for (
       //   let i = 0;
       //   i < drinkImageConstants.topping.coconutJellySlanted.length - adjuster;
@@ -235,9 +227,12 @@ export default {
       // }
     },
     drawCup() {
-      let cup = this.roughDraw.path(drinkImageConstants.cup[this.size], {
-        stroke: "rgb(60,60,60)"
-      });
+      let cup = this.roughDraw.path(
+        drinkImageConstants.cup[this.options.size],
+        {
+          stroke: "rgb(60,60,60)"
+        }
+      );
       cup.classList.add("cup");
       this.drinkImage.appendChild(cup);
     }
