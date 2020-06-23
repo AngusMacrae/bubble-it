@@ -32,7 +32,7 @@ import rough from "roughjs/bundled/rough.cjs";
 
 import drinkOptions from "../data/drinkOptions.json";
 import { drinkImageConstants } from "../data/drinkImageConstants";
-import { fillColors } from "../data/fillColors";
+import themeColours from "../data/themeColours.json";
 
 export default {
   name: "OrderListItem",
@@ -83,10 +83,10 @@ export default {
       return drinkOptions.sugar[this.sugar].text;
     },
     fillColour() {
-      return fillColors[0][this.index % 3];
+      return themeColours.fill[this.index % 3];
     },
     highlightColour() {
-      return fillColors[1][this.index % 3];
+      return themeColours.highlight[this.index % 3];
     }
   },
   methods: {
