@@ -26,7 +26,7 @@ import OrderListItem from "./OrderListItem.vue";
 import OrderListAddItem from "./OrderListAddItem.vue";
 import OrderListSubtotal from "./OrderListSubtotal.vue";
 import { v4 as uuid } from "uuid";
-import { drinkOptions } from "../drinkOptions";
+import { drinkOptions } from "../data/drinkOptions";
 
 class Drink {
   constructor(

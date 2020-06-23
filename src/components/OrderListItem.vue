@@ -30,9 +30,9 @@
 import SketchedBox from "./SketchedBox.vue";
 import rough from "roughjs/bundled/rough.cjs";
 
-import { drinkOptions } from "../drinkOptions";
-import { teaImageVals } from "../teaImageVals";
-import { fillColors } from "../fillColors";
+import { drinkOptions } from "../data/drinkOptions";
+import { drinkImageConstants } from "../data/drinkImageConstants";
+import { fillColors } from "../data/fillColors";
 
 export default {
   name: "OrderListItem",
@@ -99,7 +99,7 @@ export default {
     drawStraw() {
       let roughDraw = rough.svg(this.drinkImage);
       let straw = roughDraw.path(
-        teaImageVals.straw[this.index % 2][
+        drinkImageConstants.straw[this.index % 2][
           drinkOptions.size[0].indexOf(this.size)
         ],
         {
@@ -113,9 +113,10 @@ export default {
     drawTea() {
       let roughDraw = rough.svg(this.drinkImage);
       let tea = roughDraw.path(
-        teaImageVals.tea[drinkOptions.size[0].indexOf(this.size)],
+        drinkImageConstants.tea[drinkOptions.size[0].indexOf(this.size)],
         {
-          fill: teaImageVals.teaColor[drinkOptions.tea[0].indexOf(this.tea)],
+          fill:
+            drinkImageConstants.teaColor[drinkOptions.tea[0].indexOf(this.tea)],
           fillStyle: "solid",
           strokeWidth: 0,
           roughness: 0
@@ -128,7 +129,7 @@ export default {
       let roughDraw = rough.svg(this.drinkImage);
       if (this.milk == "Fresh milk") {
         let milkCap = roughDraw.path(
-          teaImageVals.milk[drinkOptions.size[0].indexOf(this.size)],
+          drinkImageConstants.milk[drinkOptions.size[0].indexOf(this.size)],
           {
             fill: "rgba(255,250,250,0.9)",
             fillStyle: "solid",
@@ -147,7 +148,7 @@ export default {
       if (this.ice != "No ice") {
         for (let i = 0; i < 3; i++) {
           ice[i] = roughDraw.path(
-            teaImageVals.ice[drinkOptions.size[0].indexOf(this.size)][i],
+            drinkImageConstants.ice[drinkOptions.size[0].indexOf(this.size)][i],
             {
               fill: "rgba(245,245,255,0.95)",
               fillStyle: "solid",
@@ -164,7 +165,7 @@ export default {
       if (this.ice == "Full ice") {
         for (let i = 3; i < 5; i++) {
           ice[i] = roughDraw.path(
-            teaImageVals.ice[drinkOptions.size[0].indexOf(this.size)][i],
+            drinkImageConstants.ice[drinkOptions.size[0].indexOf(this.size)][i],
             {
               fill: "rgba(245,245,255,0.95)",
               fillStyle: "solid",
@@ -184,15 +185,19 @@ export default {
         let adjuster = this.size == "Regular" ? 6 : 0;
         for (
           let i = 0;
-          i < teaImageVals.topping.pearls.length - adjuster;
+          i < drinkImageConstants.topping.pearls.length - adjuster;
           i++
         ) {
-          let pearl = roughDraw.circle(...teaImageVals.topping.pearls[i], 7, {
-            fill: "rgba(37,23,26,0.9)",
-            strokeWidth: 0,
-            roughness: 0.3,
-            fillStyle: "solid"
-          });
+          let pearl = roughDraw.circle(
+            ...drinkImageConstants.topping.pearls[i],
+            7,
+            {
+              fill: "rgba(37,23,26,0.9)",
+              strokeWidth: 0,
+              roughness: 0.3,
+              fillStyle: "solid"
+            }
+          );
           this.drinkImage.appendChild(pearl);
           this.drinkImage.lastElementChild.classList.add("pearl" + i);
         }
@@ -200,11 +205,11 @@ export default {
         let adjuster = this.size == "Regular" ? 3 : 0;
         for (
           let i = 0;
-          i < teaImageVals.topping.coconutJelly.length - adjuster;
+          i < drinkImageConstants.topping.coconutJelly.length - adjuster;
           i++
         ) {
           let jelly = roughDraw.rectangle(
-            ...teaImageVals.topping.coconutJelly[i],
+            ...drinkImageConstants.topping.coconutJelly[i],
             12,
             6,
             {
@@ -221,11 +226,11 @@ export default {
         adjuster = this.size == "Regular" ? 1 : 0;
         for (
           let i = 0;
-          i < teaImageVals.topping.coconutJellySlanted.length - adjuster;
+          i < drinkImageConstants.topping.coconutJellySlanted.length - adjuster;
           i++
         ) {
           let jelly = roughDraw.path(
-            teaImageVals.topping.coconutJellySlanted[i],
+            drinkImageConstants.topping.coconutJellySlanted[i],
             {
               fill: "rgba(245,255,245,0.95)",
               strokeWidth: 0.5,
@@ -242,7 +247,7 @@ export default {
     drawCup() {
       let roughDraw = rough.svg(this.drinkImage);
       let cup = roughDraw.path(
-        teaImageVals.cup[drinkOptions.size[0].indexOf(this.size)],
+        drinkImageConstants.cup[drinkOptions.size[0].indexOf(this.size)],
         {
           stroke: "rgb(60,60,60)"
         }

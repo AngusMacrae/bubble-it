@@ -1,4 +1,4 @@
-export const teaImageVals = {
+export const drinkImageConstants = {
   cup: ['M 10 65 H 90 L 75 190 H 25 Z', 'M 10 45 H 90 L 75 190 H 25 Z'],
   straw: [
     ['M 2 25 L 60 190 L 65 187 L 7 22 Z', 'M 6 25 L 60 190 L 65 188 L 13 23 Z'], // leaning left
