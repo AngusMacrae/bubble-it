@@ -5,6 +5,15 @@
 <script>
 import rough from "roughjs/bundled/rough.cjs";
 
+function debounce(callback, wait) {
+  let timeout;
+  return (...args) => {
+    const context = this;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => callback.apply(context, args), wait);
+  };
+}
+
 export default {
   name: "SketchedBox",
   props: ["fillColour"],
@@ -14,7 +23,6 @@ export default {
       boxElement.innerHTML = "";
       let boxDimensions = boxElement.getBoundingClientRect();
       let roughDraw = rough.svg(boxElement);
-      // console.log(this);
       boxElement.appendChild(
         roughDraw.rectangle(0, 0, boxDimensions.width, boxDimensions.height, {
           fill: this.fillColour,
@@ -33,6 +41,7 @@ export default {
   },
   mounted() {
     this.drawBox();
+    window.addEventListener("resize", debounce(this.drawBox, 100));
   }
 };
 </script>
