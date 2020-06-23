@@ -38,7 +38,8 @@ export default {
   name: "OrderListItem",
   data() {
     return {
-      drinkImage: ""
+      drinkImage: "",
+      roughDraw: ""
     };
   },
   props: ["index", "size", "tea", "milk", "topping", "ice", "sugar", "price"],
@@ -90,11 +91,9 @@ export default {
   },
   methods: {
     changeOption(event, optionToChange, currentIndex) {
-      // console.log(currentIndex);
       this.$emit("change", this.index, optionToChange, currentIndex);
     },
     updateColours() {
-      // console.log(this);
       let itemTitle = this.$el.querySelector(".drink-title");
       itemTitle.style.color = this.highlightColour;
       let drinkOptionButtons = this.$el.querySelectorAll(".drink-details li");
@@ -112,141 +111,136 @@ export default {
       this.drawCup();
     },
     drawStraw() {
-      let roughDraw = rough.svg(this.drinkImage);
-      let straw = roughDraw.path(
-        drinkImageConstants.straw[this.index % 2][this.size],
-        {
-          strokeWidth: "1",
-          stroke: "rgb(60,60,60)"
-        }
-      );
+      let svgPath = drinkImageConstants.straw[this.index % 2][this.size];
+      let svgOptions = {
+        strokeWidth: "1",
+        stroke: "rgb(60,60,60)"
+      };
+      let straw = this.roughDraw.path(svgPath, svgOptions);
       straw.classList.add("straw");
       this.drinkImage.appendChild(straw);
     },
     drawTea() {
-      let roughDraw = rough.svg(this.drinkImage);
-      let tea = roughDraw.path(drinkImageConstants.tea[this.size], {
+      let svgPath = drinkImageConstants.tea[this.size];
+      let svgOptions = {
         fill: drinkImageConstants.teaColor[this.tea],
         fillStyle: "solid",
         strokeWidth: 0,
         roughness: 0
-      });
+      };
+      let tea = this.roughDraw.path(svgPath, svgOptions);
       tea.classList.add("tea");
       this.drinkImage.appendChild(tea);
     },
     drawMilk() {
-      let roughDraw = rough.svg(this.drinkImage);
       if (this.milk == 0) {
-        let milkCap = roughDraw.path(drinkImageConstants.milk[this.size], {
+        let svgPath = drinkImageConstants.milk[this.size];
+        let svgOptions = {
           fill: "rgba(255,250,250,0.9)",
           fillStyle: "solid",
           strokeWidth: 0,
           roughness: 0
-        });
+        };
+        let milkCap = this.roughDraw.path(svgPath, svgOptions);
         milkCap.classList.add("milk");
         this.drinkImage.appendChild(milkCap);
       }
     },
     drawIce() {
-      let roughDraw = rough.svg(this.drinkImage);
-      let ice = [];
-
-      if (this.ice != 2) {
-        for (let i = 0; i < 3; i++) {
-          ice[i] = roughDraw.path(drinkImageConstants.ice[this.size][i], {
-            fill: "rgba(245,245,255,0.95)",
-            fillStyle: "solid",
-            stroke: "rgba(60,60,60,0.3)",
-            strokeWidth: 0.5,
-            roughness: 0.5
-          });
-          this.drinkImage.appendChild(ice[i]);
-          this.drinkImage.lastElementChild.classList.add("ice" + i);
-        }
+      switch (this.ice) {
+        case 2:
+          break;
+        case 1:
+          this.drawIceCubes(0, 2);
+          break;
+        case 0:
+          this.drawIceCubes(0, 4);
+          break;
       }
-
-      if (this.ice == 0) {
-        for (let i = 3; i < 5; i++) {
-          ice[i] = roughDraw.path(drinkImageConstants.ice[this.size][i], {
-            fill: "rgba(245,245,255,0.95)",
-            fillStyle: "solid",
-            stroke: "rgba(60,60,60,0.3)",
-            strokeWidth: 0.5,
-            roughness: 0.5
-          });
-          this.drinkImage.appendChild(ice[i]);
-          this.drinkImage.lastElementChild.classList.add("ice" + i);
-        }
+    },
+    drawIceCubes(firstCubeIndex, lastCubeIndex) {
+      for (let i = firstCubeIndex; i <= lastCubeIndex; i++) {
+        let svgPath = drinkImageConstants.ice[this.size][i];
+        let svgOptions = {
+          fill: "rgba(245,245,255,0.95)",
+          fillStyle: "solid",
+          stroke: "rgba(60,60,60,0.3)",
+          strokeWidth: 0.5,
+          roughness: 0.5
+        };
+        let iceCube = this.roughDraw.path(svgPath, svgOptions);
+        this.drinkImage.appendChild(iceCube);
+        this.drinkImage.lastElementChild.classList.add("iceCube" + i);
       }
     },
     drawTopping() {
-      let roughDraw = rough.svg(this.drinkImage);
-      if (this.topping == 0) {
-        let adjuster = this.size.optionName == "regular" ? 6 : 0;
-        for (
-          let i = 0;
-          i < drinkImageConstants.topping.pearls.length - adjuster;
-          i++
-        ) {
-          let pearl = roughDraw.circle(
-            ...drinkImageConstants.topping.pearls[i],
-            7,
-            {
-              fill: "rgba(37,23,26,0.9)",
-              strokeWidth: 0,
-              roughness: 0.3,
-              fillStyle: "solid"
-            }
-          );
-          this.drinkImage.appendChild(pearl);
-          this.drinkImage.lastElementChild.classList.add("pearl" + i);
-        }
-      } else if (this.topping == 1) {
-        let adjuster = this.size == 0 ? 3 : 0;
-        for (
-          let i = 0;
-          i < drinkImageConstants.topping.coconutJelly.length - adjuster;
-          i++
-        ) {
-          let jelly = roughDraw.rectangle(
-            ...drinkImageConstants.topping.coconutJelly[i],
-            12,
-            6,
-            {
-              fill: "rgba(245,255,245,0.95)",
-              strokeWidth: 0.5,
-              stroke: "rgba(60,60,60,0.3)",
-              roughness: 0.4,
-              fillStyle: "solid"
-            }
-          );
-          this.drinkImage.appendChild(jelly);
-          this.drinkImage.lastElementChild.classList.add("jelly" + i);
-        }
-        adjuster = this.size == 0 ? 1 : 0;
-        for (
-          let i = 0;
-          i < drinkImageConstants.topping.coconutJellySlanted.length - adjuster;
-          i++
-        ) {
-          let jelly = roughDraw.path(
-            drinkImageConstants.topping.coconutJellySlanted[i],
-            {
-              fill: "rgba(245,255,245,0.95)",
-              strokeWidth: 0.5,
-              stroke: "rgba(60,60,60,0.3)",
-              roughness: 0.4,
-              fillStyle: "solid"
-            }
-          );
-          this.drinkImage.appendChild(jelly);
-          this.drinkImage.lastElementChild.classList.add("jelly-slanted" + i);
-        }
+      switch (this.topping) {
+        case 0:
+          this.drawPearls();
+          break;
+        case 1:
+          this.drawJelly();
+          break;
       }
     },
+    drawPearls() {
+      let lastPearlIndex = drinkImageConstants.topping.pearls.length;
+      let lastPearlToDraw = lastPearlIndex - (this.size == 0 ? 6 : 0);
+      for (let i = 0; i < lastPearlToDraw; i++) {
+        let svgCircle = [...drinkImageConstants.topping.pearls[i], 7];
+        let svgOptions = {
+          fill: "rgba(37,23,26,0.9)",
+          strokeWidth: 0,
+          roughness: 0.3,
+          fillStyle: "solid"
+        };
+        let pearl = this.roughDraw.circle(...svgCircle, svgOptions);
+        this.drinkImage.appendChild(pearl);
+        this.drinkImage.lastElementChild.classList.add("pearl" + i);
+      }
+    },
+    drawJelly() {
+      let lastJellyIndex = drinkImageConstants.topping.coconutJelly.length;
+      let lastJellyToDraw = lastJellyIndex - (this.size == 0 ? 3 : 0);
+      for (let i = 0; i < lastJellyToDraw; i++) {
+        let svgRectangle = [
+          ...drinkImageConstants.topping.coconutJelly[i],
+          12,
+          6
+        ];
+        let svgOptions = {
+          fill: "rgba(245,255,245,0.95)",
+          strokeWidth: 0.5,
+          stroke: "rgba(60,60,60,0.3)",
+          roughness: 0.4,
+          fillStyle: "solid"
+        };
+        let jelly = this.roughDraw.rectangle(...svgRectangle, svgOptions);
+        this.drinkImage.appendChild(jelly);
+        this.drinkImage.lastElementChild.classList.add("jelly" + i);
+      }
+      // TODO: draw slanted jelly in the same loop as normal jelly?
+      // adjuster = this.size == 0 ? 1 : 0;
+      // for (
+      //   let i = 0;
+      //   i < drinkImageConstants.topping.coconutJellySlanted.length - adjuster;
+      //   i++
+      // ) {
+      //   let svgPath = drinkImageConstants.topping.coconutJellySlanted[i];
+      //   let svgOptions = {
+      //     fill: "rgba(245,255,245,0.95)",
+      //     strokeWidth: 0.5,
+      //     stroke: "rgba(60,60,60,0.3)",
+      //     roughness: 0.4,
+      //     fillStyle: "solid"
+      //   };
+      //   let jelly = this.roughDraw.path(svgPath, svgOptions);
+      //   this.drinkImage.appendChild(jelly);
+      //   this.drinkImage.lastElementChild.classList.add("jelly-slanted" + i);
+      // }
+    },
     drawCup() {
-      let roughDraw = rough.svg(this.drinkImage);
-      let cup = roughDraw.path(drinkImageConstants.cup[this.size], {
+      let cup = this.roughDraw.path(drinkImageConstants.cup[this.size], {
         stroke: "rgb(60,60,60)"
       });
       cup.classList.add("cup");
@@ -255,6 +249,7 @@ export default {
   },
   mounted() {
     this.drinkImage = this.$el.querySelector(".drink-thumbnail");
+    this.roughDraw = rough.svg(this.drinkImage);
     this.updateColours();
     this.drawDrinkImage();
   },
