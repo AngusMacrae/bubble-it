@@ -120,7 +120,7 @@ export default {
       this.drinkImage.appendChild(tea);
     },
     drawMilk() {
-      if (this.milk == 0) {
+      if (this.options.milk == 0) {
         let svgPath = drinkImageConstants.milk[this.options.size];
         let svgOptions = {
           fill: "rgba(255,250,250,0.9)",
