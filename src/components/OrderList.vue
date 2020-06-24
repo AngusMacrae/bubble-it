@@ -4,7 +4,7 @@
       v-for="(drink, index) in order"
       :key="drink.id"
       :options="drink.options"
-      :price="drink.price()"
+      :price="drink.getPrice()"
       :index="index"
       @remove="removeDrink(index)"
       @duplicate="duplicateDrink(index)"
@@ -34,7 +34,7 @@ class Drink {
       sugar
     };
   }
-  price() {
+  getPrice() {
     let price = 0;
     for (let optionName in this.options) {
       price += drinkOptions[optionName][this.options[optionName]].price;
@@ -60,7 +60,7 @@ export default {
   },
   computed: {
     subtotal() {
-      let prices = this.order.map(drink => +drink.price());
+      let prices = this.order.map(drink => +drink.getPrice());
       let subtotal = prices.reduce((subtotal, price) => subtotal + price);
       return Number(subtotal).toFixed(2);
     }
