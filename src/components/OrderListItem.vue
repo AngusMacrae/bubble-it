@@ -11,12 +11,12 @@
     </header>
     <div class="drink-details-container">
       <ul class="drink-details">
-        <li @click="$emit('change', index, 'size', options.size)">{{ sizeText }}</li>
-        <li @click="$emit('change', index, 'tea', options.tea)">{{ teaText }}</li>
-        <li @click="$emit('change', index, 'milk', options.milk)">{{ milkText }}</li>
-        <li @click="$emit('change', index, 'topping', options.topping)">{{ toppingText }}</li>
-        <li @click="$emit('change', index, 'ice', options.ice)">{{ iceText }}</li>
-        <li @click="$emit('change', index, 'sugar', options.sugar)">{{ sugarText }}</li>
+        <li @click="$emit('change', 'size')">{{ sizeText }}</li>
+        <li @click="$emit('change', 'tea')">{{ teaText }}</li>
+        <li @click="$emit('change', 'milk')">{{ milkText }}</li>
+        <li @click="$emit('change', 'topping')">{{ toppingText }}</li>
+        <li @click="$emit('change', 'ice')">{{ iceText }}</li>
+        <li @click="$emit('change', 'sugar')">{{ sugarText }}</li>
       </ul>
       <div class="drink-buttons">
         <button class="drink-button-remove" @click="$emit('remove')">Remove</button>

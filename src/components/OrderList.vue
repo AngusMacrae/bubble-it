@@ -8,7 +8,7 @@
       :index="index"
       @remove="removeDrink(index)"
       @duplicate="duplicateDrink(index)"
-      @change="changeDrinkOption"
+      @change="drink.cycleOption($event)"
     />
     <OrderListAddItem @add-drink="addDrink" :key="'newItem'" />
     <OrderListSubtotal :subtotal="subtotal" :key="'subtotal'" />
@@ -25,14 +25,7 @@ import drinkOptions from "../data/drinkOptions.json";
 class Drink {
   constructor(size = 0, tea = 0, milk = 0, topping = 0, ice = 0, sugar = 0) {
     this.id = uuid();
-    this.options = {
-      size,
-      tea,
-      milk,
-      topping,
-      ice,
-      sugar
-    };
+    this.options = { size, tea, milk, topping, ice, sugar };
   }
   getPrice() {
     let price = 0;
@@ -40,6 +33,13 @@ class Drink {
       price += drinkOptions[optionName][this.options[optionName]].price;
     }
     return Number(price).toFixed(2);
+  }
+  cycleOption(optionName) {
+    const optionsArray = drinkOptions[optionName];
+    this.options[optionName] = nextArrayIndex(
+      this.options[optionName],
+      optionsArray
+    );
   }
 }
 
@@ -77,11 +77,6 @@ export default {
       let duplicate = new Drink();
       Object.assign(duplicate.options, drinkToDuplicate.options);
       this.order.push(duplicate);
-    },
-    changeDrinkOption(drinkIndex, optionToChange, currentOptionIndex) {
-      const drink = this.order[drinkIndex].options;
-      const optionsArray = drinkOptions[optionToChange];
-      drink[optionToChange] = nextArrayIndex(currentOptionIndex, optionsArray);
     }
   },
   components: {
