@@ -23,9 +23,11 @@ import { v4 as uuid } from "uuid";
 import drinkOptions from "../data/drinkOptions.json";
 
 class Drink {
-  constructor(size = 0, tea = 0, milk = 0, topping = 0, ice = 0, sugar = 0) {
+  constructor(
+    options = { size: 0, tea: 0, milk: 0, topping: 0, ice: 0, sugar: 0 }
+  ) {
     this.id = uuid();
-    this.options = { size, tea, milk, topping, ice, sugar };
+    this.options = options;
   }
   getPrice() {
     let price = 0;
@@ -66,17 +68,16 @@ export default {
     }
   },
   methods: {
-    addDrink(size, tea, milk, topping, ice, sugar) {
-      this.order.push(new Drink(size, tea, milk, topping, ice, sugar));
+    addDrink(options) {
+      this.order.push(new Drink(options));
     },
     removeDrink(indexToRemove) {
       this.order = this.order.filter((drink, index) => index != indexToRemove);
     },
     duplicateDrink(indexToDuplicate) {
       let drinkToDuplicate = this.order[indexToDuplicate];
-      let duplicate = new Drink();
-      Object.assign(duplicate.options, drinkToDuplicate.options);
-      this.order.push(duplicate);
+      let options = { ...drinkToDuplicate.options };
+      this.addDrink(options);
     }
   },
   components: {
