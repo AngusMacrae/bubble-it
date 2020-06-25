@@ -1,19 +1,24 @@
 <template>
   <main>
     <div class="container">
-      <SiteHeader />
-      <router-view />
+      <Header />
+      <OrderListHeader />
+      <OrderList />
     </div>
   </main>
 </template>
 
 <script>
-import SiteHeader from './components/SiteHeader.vue';
+import Header from './components/Header.vue';
+import OrderList from './components/OrderList.vue';
+import OrderListHeader from './components/OrderListHeader.vue';
 
 export default {
   name: 'App',
   components: {
-    SiteHeader,
+    Header,
+    OrderList,
+    OrderListHeader,
   },
 };
 </script>
@@ -96,8 +101,4 @@ p,
 li {
   font-size: 1.5rem;
 }
-/* 
-#nav a.router-link-exact-active {
-  color: #42b983;
-} */
 </style>
