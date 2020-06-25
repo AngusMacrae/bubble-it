@@ -11,12 +11,12 @@
     </header>
     <div class="drink-details-container">
       <ul class="drink-details">
-        <li @click="$emit('change', 'size')">{{ sizeText }}</li>
-        <li @click="$emit('change', 'tea')">{{ teaText }}</li>
-        <li @click="$emit('change', 'milk')">{{ milkText }}</li>
-        <li @click="$emit('change', 'topping')">{{ toppingText }}</li>
-        <li @click="$emit('change', 'ice')">{{ iceText }}</li>
-        <li @click="$emit('change', 'sugar')">{{ sugarText }}</li>
+        <li @click="$emit('change', 'size')">{{ getOptionText('size') }}</li>
+        <li @click="$emit('change', 'tea')">{{ getOptionText('tea') }}</li>
+        <li @click="$emit('change', 'milk')">{{ getOptionText('milk') }}</li>
+        <li @click="$emit('change', 'topping')">{{ getOptionText('topping') }}</li>
+        <li @click="$emit('change', 'ice')">{{ getOptionText('ice') }}</li>
+        <li @click="$emit('change', 'sugar')">{{ getOptionText('sugar') }}</li>
       </ul>
       <div class="drink-buttons">
         <button class="drink-button-remove" @click="$emit('remove')">Remove</button>
@@ -30,9 +30,9 @@
 import SketchedBox from "./SketchedBox.vue";
 import rough from "roughjs/bundled/rough.cjs";
 
+import themeColours from "../data/themeColours.json";
 import drinkOptions from "../data/drinkOptions.json";
 import { drinkImageConstants } from "../data/drinkImageConstants";
-import themeColours from "../data/themeColours.json";
 
 export default {
   name: "OrderListItem",
@@ -56,24 +56,6 @@ export default {
     }
   },
   computed: {
-    sizeText() {
-      return drinkOptions.size[this.options.size].text;
-    },
-    teaText() {
-      return drinkOptions.tea[this.options.tea].text;
-    },
-    milkText() {
-      return drinkOptions.milk[this.options.milk].text;
-    },
-    toppingText() {
-      return drinkOptions.topping[this.options.topping].text;
-    },
-    iceText() {
-      return drinkOptions.ice[this.options.ice].text;
-    },
-    sugarText() {
-      return drinkOptions.sugar[this.options.sugar].text;
-    },
     fillColour() {
       return themeColours.fill[this.colourIndex];
     },
@@ -87,6 +69,9 @@ export default {
     }
   },
   methods: {
+    getOptionText(optionName) {
+      return drinkOptions[optionName][this.options[optionName]].text;
+    },
     drawDrinkImage() {
       this.drinkImage.innerHTML = "";
       this.drawStraw();
