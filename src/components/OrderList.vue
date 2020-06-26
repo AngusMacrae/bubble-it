@@ -1,31 +1,20 @@
 <template>
   <transition-group class="order-items-list" tag="ul" name="fade-grey" mode="out-in">
-    <OrderListItem
-      v-for="(drink, index) in order"
-      :key="drink.id"
-      :options="drink.options"
-      :price="drink.getPrice()"
-      :index="index"
-      @remove="removeDrink(index)"
-      @duplicate="duplicateDrink(index)"
-      @change="drink.cycleOption($event)"
-    />
+    <OrderListItem v-for="(drink, index) in order" :key="drink.id" :options="drink.options" :price="drink.getPrice()" :index="index" @remove="removeDrink(index)" @duplicate="duplicateDrink(index)" @change="drink.cycleOption($event)" />
     <OrderListAddItem @add-drink="addDrink" :key="'newItem'" />
     <OrderListSubtotal :subtotal="subtotal" :key="'subtotal'" />
   </transition-group>
 </template>
 
 <script>
-import OrderListItem from "./OrderListItem.vue";
-import OrderListAddItem from "./OrderListAddItem.vue";
-import OrderListSubtotal from "./OrderListSubtotal.vue";
-import { v4 as uuid } from "uuid";
-import drinkOptions from "../data/drinkOptions.json";
+import OrderListItem from './OrderListItem.vue';
+import OrderListAddItem from './OrderListAddItem.vue';
+import OrderListSubtotal from './OrderListSubtotal.vue';
+import { v4 as uuid } from 'uuid';
+import drinkOptions from '../data/drinkOptions.json';
 
 class Drink {
-  constructor(
-    options = { size: 0, tea: 0, milk: 0, topping: 0, ice: 0, sugar: 0 }
-  ) {
+  constructor(options = { size: 0, tea: 0, milk: 0, topping: 0, ice: 0, sugar: 0 }) {
     this.id = uuid();
     this.options = options;
   }
@@ -38,10 +27,7 @@ class Drink {
   }
   cycleOption(optionName) {
     const optionsArray = drinkOptions[optionName];
-    this.options[optionName] = nextArrayIndex(
-      this.options[optionName],
-      optionsArray
-    );
+    this.options[optionName] = nextArrayIndex(this.options[optionName], optionsArray);
   }
 }
 
@@ -54,10 +40,10 @@ function nextArrayIndex(currentIndex, array) {
 }
 
 export default {
-  name: "OrderList",
+  name: 'OrderList',
   data() {
     return {
-      order: [new Drink()]
+      order: [new Drink()],
     };
   },
   computed: {
@@ -65,7 +51,7 @@ export default {
       let prices = this.order.map(drink => +drink.getPrice());
       let subtotal = prices.reduce((subtotal, price) => subtotal + price);
       return Number(subtotal).toFixed(2);
-    }
+    },
   },
   methods: {
     addDrink(options) {
@@ -78,13 +64,13 @@ export default {
       let drinkToDuplicate = this.order[indexToDuplicate];
       let options = { ...drinkToDuplicate.options };
       this.addDrink(options);
-    }
+    },
   },
   components: {
     OrderListItem,
     OrderListAddItem,
-    OrderListSubtotal
-  }
+    OrderListSubtotal,
+  },
 };
 </script>
 

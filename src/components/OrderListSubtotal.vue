@@ -2,7 +2,7 @@
   <li>
     <div>
       Subtotal:
-      <span>£{{subtotal}}</span>
+      <span>£{{ subtotal }}</span>
     </div>
     <a href="#">Complete order</a>
   </li>
@@ -10,8 +10,8 @@
 
 <script>
 export default {
-  name: "OrderListSubtotal",
-  props: ["subtotal"]
+  name: 'OrderListSubtotal',
+  props: ['subtotal'],
 };
 </script>
 

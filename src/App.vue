@@ -9,22 +9,22 @@
 </template>
 
 <script>
-import SiteHeader from "./components/SiteHeader.vue";
-import OrderListHeader from "./components/OrderListHeader.vue";
-import OrderList from "./components/OrderList.vue";
+import SiteHeader from './components/SiteHeader.vue';
+import OrderListHeader from './components/OrderListHeader.vue';
+import OrderList from './components/OrderList.vue';
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     SiteHeader,
     OrderList,
-    OrderListHeader
-  }
+    OrderListHeader,
+  },
 };
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@400;700&display=swap');
 
 /* CUSTOM PROPERTIES */
 
@@ -55,12 +55,12 @@ ul {
 
 body {
   /* background-image: url("./assets/135.jpg"); */
-  background-image: url("./assets/paper-texture.png");
+  background-image: url('./assets/paper-texture.png');
   color: #777;
 }
 
 main {
-  font-family: "Cabin Sketch", cursive;
+  font-family: 'Cabin Sketch', cursive;
   line-height: 1.5;
   min-height: 100vh;
   counter-reset: drinkNumber;
@@ -94,7 +94,7 @@ h3 {
 
 h3::after {
   counter-increment: drinkNumber;
-  content: " " counter(drinkNumber);
+  content: ' ' counter(drinkNumber);
 }
 
 p,
