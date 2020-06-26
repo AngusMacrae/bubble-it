@@ -15,8 +15,12 @@ function debounce(callback, wait) {
 }
 
 export default {
-  name: "SketchedBox",
-  props: ["fillColour"],
+  name: 'SketchedBox',
+  props: {
+    fillColour: {
+      default: 'none',
+    },
+  },
   methods: {
     drawBox() {
       let boxElement = this.$el;
