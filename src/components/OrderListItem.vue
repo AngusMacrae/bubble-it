@@ -46,7 +46,10 @@ export default {
   props: ['index', 'price', 'options'],
   watch: {
     index: function() {
-      setTimeout(() => (this.colourIndex = this.index % 3), 500);
+      setTimeout(() => {
+        this.colourIndex = this.index % 3;
+        this.drawDrinkImage();
+      }, 500);
     },
     options: {
       deep: true,
