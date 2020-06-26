@@ -397,3 +397,49 @@ header > .price {
   }
 }
 </style>
+
+<style>
+.ice-cube {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bob 2s ease-in-out infinite normal backwards;
+}
+
+.ice-cube-0 {
+  animation-delay: 0s;
+}
+
+.ice-cube-1 {
+  animation-delay: -0.3s;
+}
+
+.ice-cube-2 {
+  animation-delay: -0.1s;
+}
+
+.ice-cube-3 {
+  animation-delay: -0.5s;
+}
+
+.ice-cube-4 {
+  animation-delay: -0.7s;
+}
+
+@keyframes bob {
+  0% {
+    transform: translateY(1.5px) rotate(-2deg);
+  }
+  25% {
+    transform: translateY(0px) rotate(4deg);
+  }
+  50% {
+    transform: translateY(-1.5px) rotate(-4deg);
+  }
+  75% {
+    transform: translateY(0px) rotate(4deg);
+  }
+  100% {
+    transform: translateY(1.5px) rotate(-2deg);
+  }
+}
+</style>
