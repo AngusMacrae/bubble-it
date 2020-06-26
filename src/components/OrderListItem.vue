@@ -143,8 +143,8 @@ export default {
           roughness: 0.5,
         };
         let iceCube = this.roughDraw.path(svgPath, svgOptions);
+        iceCube.classList.add('iceCube');
         this.drinkImage.appendChild(iceCube);
-        this.drinkImage.lastElementChild.classList.add('iceCube' + i);
       }
     },
     drawTopping() {
@@ -169,8 +169,9 @@ export default {
           fillStyle: 'solid',
         };
         let pearl = this.roughDraw.circle(...svgCircle, svgOptions);
+        pearl.classList.add('topping');
+        pearl.classList.add('pearl');
         this.drinkImage.appendChild(pearl);
-        this.drinkImage.lastElementChild.classList.add('pearl' + i);
       }
     },
     drawJelly() {
@@ -186,8 +187,9 @@ export default {
           fillStyle: 'solid',
         };
         let jelly = this.roughDraw.rectangle(...svgRectangle, svgOptions);
+        jelly.classList.add('topping');
+        jelly.classList.add('jelly');
         this.drinkImage.appendChild(jelly);
-        this.drinkImage.lastElementChild.classList.add('jelly' + i);
       }
       // TODO: draw slanted jelly in the same loop as normal jelly?
       // adjuster = this.options.size == 0 ? 1 : 0;
