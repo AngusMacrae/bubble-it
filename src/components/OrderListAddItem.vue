@@ -1,9 +1,7 @@
 <template>
   <li class="order-item" id="new-order-item" @click="$emit('add-drink')">
     <!-- <SketchedBox /> -->
-    <p>
-      <span class="plus">+</span>Add a cup!
-    </p>
+    <p><span class="plus">+</span>Add a cup!</p>
   </li>
 </template>
 
@@ -31,7 +29,7 @@ export default {
   },
   mounted() {
     // drawBorderBox(this.$el);
-  }
+  },
 };
 </script>
 
