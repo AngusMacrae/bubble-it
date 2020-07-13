@@ -143,8 +143,8 @@ export default {
           roughness: 0.5,
         };
         let iceCube = this.roughDraw.path(svgPath, svgOptions);
+        iceCube.classList.add('iceCube');
         this.drinkImage.appendChild(iceCube);
-        this.drinkImage.lastElementChild.classList.add('iceCube' + i);
       }
     },
     drawTopping() {
@@ -169,8 +169,9 @@ export default {
           fillStyle: 'solid',
         };
         let pearl = this.roughDraw.circle(...svgCircle, svgOptions);
+        pearl.classList.add('topping');
+        pearl.classList.add('pearl');
         this.drinkImage.appendChild(pearl);
-        this.drinkImage.lastElementChild.classList.add('pearl' + i);
       }
     },
     drawJelly() {
@@ -186,8 +187,9 @@ export default {
           fillStyle: 'solid',
         };
         let jelly = this.roughDraw.rectangle(...svgRectangle, svgOptions);
+        jelly.classList.add('topping');
+        jelly.classList.add('jelly');
         this.drinkImage.appendChild(jelly);
-        this.drinkImage.lastElementChild.classList.add('jelly' + i);
       }
       // TODO: draw slanted jelly in the same loop as normal jelly?
       // adjuster = this.options.size == 0 ? 1 : 0;
@@ -392,6 +394,52 @@ header > .price {
 @media (max-width: 340px) {
   .drink-details li {
     flex: 0 0 8rem;
+  }
+}
+</style>
+
+<style>
+.ice-cube {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bob 2s ease-in-out infinite normal backwards;
+}
+
+.ice-cube-0 {
+  animation-delay: 0s;
+}
+
+.ice-cube-1 {
+  animation-delay: -0.3s;
+}
+
+.ice-cube-2 {
+  animation-delay: -0.1s;
+}
+
+.ice-cube-3 {
+  animation-delay: -0.5s;
+}
+
+.ice-cube-4 {
+  animation-delay: -0.7s;
+}
+
+@keyframes bob {
+  0% {
+    transform: translateY(1.5px) rotate(-2deg);
+  }
+  25% {
+    transform: translateY(0px) rotate(4deg);
+  }
+  50% {
+    transform: translateY(-1.5px) rotate(-4deg);
+  }
+  75% {
+    transform: translateY(0px) rotate(4deg);
+  }
+  100% {
+    transform: translateY(1.5px) rotate(-2deg);
   }
 }
 </style>
