@@ -1,9 +1,9 @@
 export const drinkImageConstants = {
   cup: ['M 10 65 H 90 L 75 190 H 25 Z', 'M 10 45 H 90 L 75 190 H 25 Z'],
-  straw: [
-    ['M 2 25 L 60 190 L 65 187 L 7 22 Z', 'M 6 25 L 60 190 L 65 188 L 13 23 Z'], // leaning left
-    ['M 98 25 L 40 190 L 35 187 L 93 22 Z', 'M 94 25 L 40 190 L 35 188 L 87 23 Z'], // leaning right
-  ],
+  straw: {
+    left: ['M 2 25 L 60 190 L 65 187 L 7 22 Z', 'M 6 25 L 60 190 L 65 188 L 13 23 Z'],
+    right: ['M 98 25 L 40 190 L 35 187 L 93 22 Z', 'M 94 25 L 40 190 L 35 188 L 87 23 Z'],
+  },
   milk: ['M 15 95 H 85 L 83 115 H 17 Z', 'M 13 75 H 87 L 84 100 H 16 Z'],
   tea: ['M 15 95 H 85 L 75 190 H 25 Z', 'M 15 80 H 85 L 75 190 H 25 Z'],
   teaColor: ['rgba(196,180,154,0.9)', 'rgba(154,146,88,0.9)'],
