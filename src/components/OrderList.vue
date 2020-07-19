@@ -1,5 +1,5 @@
 <template>
-  <transition-group class="order-items-list" tag="ul" name="fade-grey" mode="out-in">
+  <transition-group class="order-list" tag="ul" name="fade-grey" mode="out-in">
     <OrderListItem v-for="(drink, index) in order" :key="drink.id" :options="drink.options" :price="drink.getPrice()" :index="index" @remove="removeDrink(index)" @duplicate="duplicateDrink(index)" @change="drink.cycleOption($event)" />
     <OrderListAddItem @add-drink="addDrink" :key="'newItem'" />
     <OrderListSubtotal :subtotal="subtotal" :key="'subtotal'" />
@@ -48,16 +48,14 @@ export default {
 </script>
 
 <style>
-.order-items-list {
+.order-list {
   padding: 1rem 0 3rem;
   filter: grayscale(0%);
 }
 
-li.order-item {
+.order-item {
   padding: 15px 20px 20px;
   margin-bottom: 1rem;
-  position: relative;
-  display: grid;
 }
 
 .fade-grey-enter-active {

@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div class="container">
+    <div class="page-wrapper">
       <SiteHeader />
       <OrderListHeader />
       <OrderList />
@@ -66,7 +66,7 @@ main {
   counter-reset: drinkNumber;
 }
 
-.container {
+.page-wrapper {
   max-width: 760px;
   margin: 0 auto;
   padding: 1rem;
@@ -100,5 +100,14 @@ h3::after {
 p,
 li {
   font-size: 1.5rem;
+}
+a {
+  text-decoration: none;
+  color: rgb(203, 82, 82);
+  font-weight: bold;
+  cursor: pointer;
+}
+a:hover {
+  color: rgb(243, 122, 122);
 }
 </style>
