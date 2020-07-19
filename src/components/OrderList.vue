@@ -1,6 +1,6 @@
 <template>
   <transition-group class="order-list" tag="ul" name="fade-grey" mode="out-in">
-    <OrderListItem v-for="(drink, index) in order" :key="drink.id" :options="drink.options" :price="drink.getPrice()" :index="index" @remove="removeDrink(index)" @duplicate="duplicateDrink(index)" @change="drink.cycleOption($event)" />
+    <OrderListItem v-for="(drink, index) in order" :key="drink.id" :options="drink.options" :price="drink.price" :index="index" @remove="removeDrink(index)" @duplicate="duplicateDrink(index)" @change="drink.cycleOption($event)" />
     <OrderListAddItem @add-drink="addDrink" :key="'newItem'" />
     <OrderListSubtotal :subtotal="subtotal" :key="'subtotal'" />
   </transition-group>
@@ -21,7 +21,7 @@ export default {
   },
   computed: {
     subtotal() {
-      let prices = this.order.map(drink => +drink.getPrice());
+      let prices = this.order.map(drink => +drink.price);
       let subtotal = prices.reduce((subtotal, price) => subtotal + price);
       return Number(subtotal).toFixed(2);
     },

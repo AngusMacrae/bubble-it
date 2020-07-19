@@ -7,7 +7,7 @@ export default class Drink {
     this.id = uuid();
     this.options = options;
   }
-  getPrice() {
+  get price() {
     let price = 0;
     for (let optionName in this.options) {
       price += drinkOptions[optionName][this.options[optionName]].price;
