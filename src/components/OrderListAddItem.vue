@@ -1,5 +1,5 @@
 <template>
-  <li class="order-item" id="new-order-item" @click="$emit('add-drink')">
+  <li class="order-item-add" @click="$emit('add-drink')">
     <p><span class="plus">+</span>Add a cup!</p>
   </li>
 </template>
@@ -9,13 +9,13 @@ export default {};
 </script>
 
 <style scoped>
-li#new-order-item {
+.order-item-add {
   text-align: center;
   justify-content: center;
   cursor: pointer;
 }
 
-li#new-order-item:hover {
+.order-item-add:hover {
   color: rgb(30, 30, 30);
 }
 </style>

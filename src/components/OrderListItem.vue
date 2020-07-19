@@ -1,5 +1,5 @@
 <template>
-  <li class="order-item saved-order-item" :style="cssVars">
+  <li class="order-item" :style="cssVars">
     <SketchedBox :fillColour="fillColour" />
     <div class="drink-thumbnail-container">
       <svg class="drink-thumbnail" />
@@ -18,7 +18,7 @@
         <li @click="$emit('change', 'ice')">{{ getOptionText('ice') }}</li>
         <li @click="$emit('change', 'sugar')">{{ getOptionText('sugar') }}</li>
       </ul>
-      <div class="drink-buttons">
+      <div class="drink-buttons-container">
         <button class="drink-button-remove" @click="$emit('remove')">Remove</button>
         <button class="drink-button-duplicate" @click="$emit('duplicate')">Duplicate</button>
       </div>
@@ -300,12 +300,12 @@ header > .price {
   color: var(--highlight-colour);
 }
 
-.drink-buttons {
+.drink-buttons-container {
   display: flex;
   margin-top: 1em;
 }
 
-.drink-buttons button {
+.drink-buttons-container button {
   display: block;
   font-family: inherit;
   font-size: 90%;
@@ -315,11 +315,11 @@ header > .price {
   color: rgba(60, 60, 60, 0.4);
 }
 
-.drink-buttons button:hover {
+.drink-buttons-container button:hover {
   color: rgb(30, 30, 30);
 }
 
-.drink-buttons button:first-of-type {
+.drink-buttons-container button:first-of-type {
   margin-left: auto;
   margin-right: 1em;
 }

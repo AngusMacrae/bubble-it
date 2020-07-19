@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div class="container">
+    <div class="page-wrapper">
       <SiteHeader />
       <OrderListHeader />
       <OrderList />
@@ -66,7 +66,7 @@ main {
   counter-reset: drinkNumber;
 }
 
-.container {
+.page-wrapper {
   max-width: 760px;
   margin: 0 auto;
   padding: 1rem;
