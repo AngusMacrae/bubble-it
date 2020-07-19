@@ -29,13 +29,6 @@ li {
 a {
   display: block;
   margin-left: 10vw;
-  text-decoration: none;
-  color: rgb(203, 82, 82);
-  font-weight: bold;
-  cursor: pointer;
-}
-a:hover {
-  color: rgb(243, 122, 122);
 }
 @media (max-width: 405px) {
   a {

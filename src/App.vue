@@ -96,8 +96,13 @@ p,
 li {
   font-size: 1.5rem;
 }
-/* 
-#nav a.router-link-exact-active {
-  color: #42b983;
-} */
+a {
+  text-decoration: none;
+  color: rgb(203, 82, 82);
+  font-weight: bold;
+  cursor: pointer;
+}
+a:hover {
+  color: rgb(243, 122, 122);
+}
 </style>
