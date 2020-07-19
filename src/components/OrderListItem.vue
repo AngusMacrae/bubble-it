@@ -6,10 +6,10 @@
     </div>
     <header>
       <h3 class="drink-title">Drink</h3>
-      <small>(Click to change)</small>
       <span class="price">£{{ price }}</span>
     </header>
     <div class="drink-details-container">
+      <small class="prompt">(Click any option to change)</small>
       <ul class="drink-details">
         <li @click="$emit('change', 'size')">{{ getOptionText('size') }}</li>
         <li @click="$emit('change', 'tea')">{{ getOptionText('tea') }}</li>
@@ -234,7 +234,6 @@ export default {
 .order-item {
   position: relative;
   display: grid;
-  grid-template-rows: auto auto;
   grid-template-columns: auto 1fr;
   grid-template-areas:
     'image header'
@@ -243,10 +242,9 @@ export default {
 
 .drink-thumbnail-container {
   grid-area: image;
-  margin: 0 3rem 0 2em;
+  margin: 0 2em;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-items: center;
   /* transform: scale(0.5); */
 }
 
@@ -255,47 +253,33 @@ export default {
   height: 200px;
 }
 
-.drink-details-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 0.5em 0.5em 0 0;
-}
-
 header {
   grid-area: header;
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-}
-
-header > * {
-  display: block;
-  flex-shrink: 0;
-}
-
-header > .price {
-  margin-left: auto;
+  justify-content: space-between;
 }
 
 .drink-title {
-  margin-right: 0.5em;
   color: var(--highlight-colour);
+}
+
+.prompt {
+  color: rgba(60, 60, 60, 0.4);
 }
 
 .drink-details {
   grid-area: details;
-  margin-bottom: auto;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.5em;
+  margin-top: 0.7em;
 }
 
 .drink-details li {
-  margin-top: 0.3em;
-  flex: 1 0 26%;
-  /* margin-right: auto; */
   cursor: pointer;
   user-select: none;
+  margin-right: auto;
 }
 
 .drink-details li:hover {
@@ -304,6 +288,7 @@ header > .price {
 
 .drink-buttons-container {
   display: flex;
+  justify-content: flex-end;
   margin-top: 1em;
 }
 
@@ -321,81 +306,57 @@ header > .price {
   color: rgb(30, 30, 30);
 }
 
-.drink-buttons-container button:first-of-type {
-  margin-left: auto;
-  margin-right: 1em;
+.drink-buttons-container button:not(:last-of-type) {
+  margin-right: 1.5em;
 }
 
 @media (max-width: 765px) {
-  .drink-details li {
-    flex: 1 0 34%;
+  .drink-details {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
-@media (max-width: 625px) {
+@media (max-width: 600px) {
   .drink-thumbnail-container {
-    margin: 0 2rem 0 1rem;
+    margin: 0 1em;
   }
 }
 
-@media (max-width: 565px) {
-  header small {
-    order: 1;
-    width: 100%;
-  }
-}
-
-@media (max-width: 530px) {
-  .drink-thumbnail-container {
-    margin: 0 1rem 0 0;
-  }
-}
-
-@media (max-width: 496px) {
+@media (max-width: 520px) {
   .order-item {
-    grid-template-rows: auto auto auto;
     grid-template-columns: auto;
     grid-template-areas:
       'header'
       'image'
       'details';
   }
-  header small {
-    order: 0;
-    width: auto;
-  }
   .drink-thumbnail-container {
-    margin: 0;
-    flex-direction: row;
+    margin: 0 auto 0.5em;
   }
-  .drink-details-container {
-    padding: 0.5rem 0;
-  }
-}
-
-@media (max-width: 405px) {
-  header small {
-    order: 1;
-    width: 100%;
-  }
-  .drink-details li {
-    flex: 1 0 34%;
+  .drink-details li,
+  .drink-buttons-container button {
+    padding: 0.1em 0;
   }
 }
 
-@media (max-width: 365px) {
-  .order-item {
-    padding: 15px 15px 20px;
+@media (max-width: 390px) {
+  .drink-title {
+    font-size: 110%;
+  }
+  .prompt {
+    font-size: 70%;
+  }
+  .drink-details {
+    grid-template-columns: auto auto;
   }
   .drink-details li {
-    /* flex: 0 0 8.7rem; */
     font-size: 90%;
   }
 }
 
-@media (max-width: 340px) {
-  .drink-details li {
-    flex: 0 0 8rem;
+@media (max-width: 350px) {
+  .drink-details {
+    grid-template-columns: 1fr;
   }
 }
 </style>
