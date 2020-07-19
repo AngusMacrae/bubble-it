@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import OrderList from '@/components/OrderList.vue';
 import PageHeader from '@/components/PageHeader.vue';
+import OrderList from '@/components/order/OrderList.vue';
 
 export default {
   name: 'Order',

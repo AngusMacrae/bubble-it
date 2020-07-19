@@ -27,12 +27,12 @@
 </template>
 
 <script>
-import SketchedBox from './SketchedBox.vue';
+import SketchedBox from '../SketchedBox.vue';
 import rough from 'roughjs/bundled/rough.cjs';
 
-import themeColours from '../data/themeColours.json';
-import drinkOptions from '../data/drinkOptions.json';
-import { drinkImageConstants } from '../data/drinkImageConstants';
+import themeColours from '../../data/themeColours.json';
+import drinkOptions from '../../data/drinkOptions.json';
+import { drinkImageConstants } from '../../data/drinkImageConstants';
 
 export default {
   name: 'OrderListItem',

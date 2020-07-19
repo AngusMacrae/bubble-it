@@ -7,7 +7,7 @@
 
 <script>
 import PageHeader from '@/components/PageHeader.vue';
-import PayForm from '@/components/PayForm.vue';
+import PayForm from '@/components/pay/PayForm.vue';
 
 export default {
   name: 'Pay',
