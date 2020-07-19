@@ -232,6 +232,8 @@ export default {
 
 <style scoped>
 .order-item {
+  position: relative;
+  display: grid;
   grid-template-rows: auto auto;
   grid-template-columns: auto 1fr;
   grid-template-areas:

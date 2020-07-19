@@ -56,8 +56,6 @@ export default {
 .order-item {
   padding: 15px 20px 20px;
   margin-bottom: 1rem;
-  position: relative;
-  display: grid;
 }
 
 .fade-grey-enter-active {

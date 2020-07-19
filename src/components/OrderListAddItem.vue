@@ -1,6 +1,6 @@
 <template>
-  <li class="order-item-add" @click="$emit('add-drink')">
-    <p><span class="plus">+</span>Add a cup!</p>
+  <li class="order-item add-item" @click="$emit('add-drink')">
+    <p><span class="plus">+</span>Add a drink!</p>
   </li>
 </template>
 
@@ -9,13 +9,13 @@ export default {};
 </script>
 
 <style scoped>
-.order-item-add {
+.add-item {
   text-align: center;
   justify-content: center;
   cursor: pointer;
 }
 
-.order-item-add:hover {
+.add-item:hover {
   color: rgb(30, 30, 30);
 }
 </style>
