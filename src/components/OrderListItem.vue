@@ -50,10 +50,10 @@ export default {
   },
   computed: {
     fillColour() {
-      return themeColours.fill[this.colourIndex];
+      return themeColours[this.colourIndex].fill;
     },
     highlightColour() {
-      return themeColours.highlight[this.colourIndex];
+      return themeColours[this.colourIndex].highlight;
     },
     cssVars() {
       return {
