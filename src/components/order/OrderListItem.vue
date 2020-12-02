@@ -19,7 +19,7 @@
         <li @click="$emit('change', 'sugar')">{{ getOptionText('sugar') }}</li>
       </ul>
       <div class="drink-buttons-container">
-        <button class="drink-button-remove" @click="$emit('remove')">Remove</button>
+        <button v-if="alone == false" class="drink-button-remove" @click="$emit('remove')">Remove</button>
         <button class="drink-button-duplicate" @click="$emit('duplicate')">Duplicate</button>
       </div>
     </div>
@@ -40,7 +40,7 @@ export default {
       colourIndex: this.index % 3,
     };
   },
-  props: ['index', 'price', 'options'],
+  props: ['index', 'price', 'options', 'alone'],
   watch: {
     index: function() {
       setTimeout(() => {
