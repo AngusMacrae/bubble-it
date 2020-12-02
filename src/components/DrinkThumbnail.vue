@@ -74,14 +74,14 @@ export default {
       }
     },
     drawIce() {
+      const svgOptions = {
+        fill: 'rgba(245,245,255,0.95)',
+        fillStyle: 'solid',
+        stroke: 'rgba(60,60,60,0.3)',
+        strokeWidth: 0.5,
+        roughness: 0.5,
+      };
       drinkImageConstants.ice[this.options.size][this.options.ice].forEach(svgPath => {
-        const svgOptions = {
-          fill: 'rgba(245,245,255,0.95)',
-          fillStyle: 'solid',
-          stroke: 'rgba(60,60,60,0.3)',
-          strokeWidth: 0.5,
-          roughness: 0.5,
-        };
         const iceCube = this.roughDraw.path(svgPath, svgOptions);
         iceCube.classList.add('iceCube');
         this.$el.appendChild(iceCube);
@@ -98,14 +98,14 @@ export default {
       }
     },
     drawPearls() {
+      const svgOptions = {
+        fill: 'rgba(37,23,26,0.9)',
+        strokeWidth: 0,
+        roughness: 0.3,
+        fillStyle: 'solid',
+      };
       drinkImageConstants.topping.pearls[this.options.size].forEach(circleParameters => {
         const svgCircle = [...circleParameters, 7];
-        const svgOptions = {
-          fill: 'rgba(37,23,26,0.9)',
-          strokeWidth: 0,
-          roughness: 0.3,
-          fillStyle: 'solid',
-        };
         const pearl = this.roughDraw.circle(...svgCircle, svgOptions);
         pearl.classList.add('topping');
         pearl.classList.add('pearl');
@@ -113,15 +113,15 @@ export default {
       });
     },
     drawJelly() {
+      const svgOptions = {
+        fill: 'rgba(245,255,245,0.95)',
+        strokeWidth: 0.5,
+        stroke: 'rgba(60,60,60,0.3)',
+        roughness: 0.4,
+        fillStyle: 'solid',
+      };
       drinkImageConstants.topping.jelly[this.options.size].forEach(rectangleParameters => {
         const svgRectangle = [...rectangleParameters, 12, 6];
-        const svgOptions = {
-          fill: 'rgba(245,255,245,0.95)',
-          strokeWidth: 0.5,
-          stroke: 'rgba(60,60,60,0.3)',
-          roughness: 0.4,
-          fillStyle: 'solid',
-        };
         const jelly = this.roughDraw.rectangle(...svgRectangle, svgOptions);
         jelly.classList.add('topping');
         jelly.classList.add('jelly');
