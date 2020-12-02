@@ -127,25 +127,11 @@ export default {
         jelly.classList.add('jelly');
         this.$el.appendChild(jelly);
       });
-      // TODO: draw slanted jelly in the same loop as normal jelly?
-      // adjuster = this.options.size == 0 ? 1 : 0;
-      // for (
-      //   let i = 0;
-      //   i < drinkImageConstants.topping.jellySlanted.length - adjuster;
-      //   i++
-      // ) {
-      //   const svgPath = drinkImageConstants.topping.jellySlanted[i];
-      //   const svgOptions = {
-      //     fill: "rgba(245,255,245,0.95)",
-      //     strokeWidth: 0.5,
-      //     stroke: "rgba(60,60,60,0.3)",
-      //     roughness: 0.4,
-      //     fillStyle: "solid"
-      //   };
-      //   const jelly = this.roughDraw.path(svgPath, svgOptions);
-      //   this.$el.appendChild(jelly);
-      //   this.$el.lastElementChild.classList.add("jelly-slanted" + i);
-      // }
+      drinkImageConstants.topping.jellySlanted[this.options.size].forEach(svgPath => {
+        const jelly = this.roughDraw.path(svgPath, svgOptions);
+        jelly.classList.add("jelly-slanted");
+        this.$el.appendChild(jelly);
+      });
     },
     drawCup() {
       const cup = this.roughDraw.path(drinkImageConstants.cup[this.options.size], {
