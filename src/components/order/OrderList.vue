@@ -10,7 +10,7 @@
 import OrderListItem from './OrderListItem.vue';
 import OrderListAddItem from './OrderListAddItem.vue';
 import OrderListSubtotal from './OrderListSubtotal.vue';
-import Drink from '../classes/Drink';
+import Drink from '../../classes/Drink';
 
 export default {
   name: 'OrderList',

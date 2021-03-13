@@ -4,7 +4,7 @@
       Subtotal:
       <span>£{{ subtotal }}</span>
     </div>
-    <a href="#">Complete order</a>
+    <a @click="goToPayPage()">Checkout</a>
   </li>
 </template>
 
@@ -12,6 +12,11 @@
 export default {
   name: 'OrderListSubtotal',
   props: ['subtotal'],
+  methods: {
+    goToPayPage() {
+      this.$router.push({ path: '/pay' });
+    },
+  },
 };
 </script>
 

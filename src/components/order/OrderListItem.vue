@@ -27,11 +27,11 @@
 </template>
 
 <script>
-import SketchedBox from './SketchedBox.vue';
-import DrinkThumbnail from './DrinkThumbnail.vue';
+import SketchedBox from '../SketchedBox.vue';
+import DrinkThumbnail from '../DrinkThumbnail.vue';
 
-import themeColours from '../data/themeColours.json';
-import drinkOptions from '../data/drinkOptions.json';
+import themeColours from '../../data/themeColours.json';
+import drinkOptions from '../../data/drinkOptions.json';
 
 export default {
   name: 'OrderListItem',

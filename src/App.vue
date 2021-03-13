@@ -2,23 +2,18 @@
   <main>
     <div class="page-wrapper">
       <SiteHeader />
-      <OrderListHeader />
-      <OrderList />
+      <router-view />
     </div>
   </main>
 </template>
 
 <script>
 import SiteHeader from './components/SiteHeader.vue';
-import OrderListHeader from './components/OrderListHeader.vue';
-import OrderList from './components/OrderList.vue';
 
 export default {
   name: 'App',
   components: {
     SiteHeader,
-    OrderList,
-    OrderListHeader,
   },
 };
 </script>
@@ -57,6 +52,7 @@ body {
   /* background-image: url("./assets/135.jpg"); */
   background-image: url('./assets/paper-texture.png');
   color: #777;
+  font-size: 1.5rem;
 }
 
 main {
@@ -97,10 +93,6 @@ h3::after {
   content: ' ' counter(drinkNumber);
 }
 
-p,
-li {
-  font-size: 1.5rem;
-}
 a {
   text-decoration: none;
   color: rgb(203, 82, 82);

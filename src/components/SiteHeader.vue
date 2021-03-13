@@ -1,21 +1,28 @@
 <template>
   <h1>
-    <span>B</span>
-    <span>u</span>
-    <span>b</span>
-    <span>b</span>
-    <span>l</span>
-    <span>e</span>
-    <span>-</span>
-    <span>i</span>
-    <span>t</span>
-    <span>!</span>
+    <a @click="goToHome()">
+      <span>B</span>
+      <span>u</span>
+      <span>b</span>
+      <span>b</span>
+      <span>l</span>
+      <span>e</span>
+      <span>-</span>
+      <span>i</span>
+      <span>t</span>
+      <span>!</span>
+    </a>
   </h1>
 </template>
 
 <script>
 export default {
   name: 'SiteHeader',
+  methods: {
+    goToHome() {
+      this.$router.push({path: '/'});
+    }
+  }
 };
 </script>
 
